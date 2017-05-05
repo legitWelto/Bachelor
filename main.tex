@@ -1,0 +1,30 @@
+\documentclass[11pt]{book}
+\usepackage{graphicx,color,amssymb,amsmath,amsthm}
+\usepackage{url}
+\usepackage{fullpage}
+\usepackage[ngerman]{babel}
+\usepackage[toc,page]{appendix}
+\usepackage[bw,framed]{includes/mcode}
+\include{includes/macros}
+\parindent0mm
+\begin{document}
+%%% Einladen der Titelseite
+\include{title}
+%%%
+\clearpage
+\tableofcontents
+\renewcommand{\thepage}{\roman{page}}
+\setcounter{page}{1}
+%%% Hier werden die Kapitel eingebunden
+\include{intro}
+\include{beispielkapitel}
+\include{app_hilfsaussagen}
+%%%
+\bibliography{literature}
+\addcontentsline{toc}{chapter}{Literaturverzeichnis} 
+\bibliographystyle{amsalpha}
+\include{zusammenfassung}
+\include{erklaerung}
+%%% Kompilieren
+% pdflatex main.tex; bibtex main; pdflatex main.tex
+\end{document}
