@@ -84,3 +84,24 @@ umfassen sollte.
     \omega_T = \bigcup_{z\in\mathscr{N}_h,z\in T} \omega_z
     \]
 \end{definition}
+\begin{lemma}
+	\leavevmode
+	\begin{itemize}
+		\item[1)]
+		Für alle $T\in\mathscr{T}_h$ mit $T =conv\{z_1,z_2,...,z_{d+1}\}$ gibt es Konstanten $c_{e,1},c_{e,2}$,  sodass für $b_T = \varphi_{z_1}\varphi_{z_2}\cdots\varphi_{z_{d+1}} \in H^1(\Omega)\cap C(\overline{\Omega})$ gilt:
+		\[
+		supp(b_T)\subset T,\quad \int_{T} b_T =c_{e,1} |T|, \quad \|\nabla b_T\|_{L^2(T)} \leq c_{e,2}h_T^{d/2-1}
+		\]
+		\item[2)]
+		Für alle $S\in\mathscr{S}_h$ mit $S =conv\{z_1,z_2,...,z_{d}\}$ gibt es Konstanten $c_{s,1},c_{s,2}$,  sodass für $b_S = \varphi_{z_1}\varphi_{z_2}\cdots\varphi_{z_{d}} \in H^1(\Omega)\cap C(\overline{\Omega})$ gilt:
+		\[
+		supp(b_S)\subset \omega_S,\quad \int_{S} b_S =c_{s,1} |S|, \quad \|\nabla b_S\|_{L^2(\omega_S)} \leq c_{s,2}h_S^{d/2-1}
+		\]
+	\end{itemize}
+\end{lemma}
+\begin{theorem}[Lokale Effizienz]
+	Sei $d=2, \Gamma_D = \p \Omega$ und $f\in L^2(\Omega)$ elementeweise konstant. Dann existiert eine Konstante $c_E > 0$, sodass für alle $T\in\mathscr{T}_h$ gilt
+	\[
+		c_E \eta_T^2(u_h)\leq \|\nabla (u-u_h)\|^2_{L^2(\omega_T)}
+	\] 
+\end{theorem}
