@@ -5,7 +5,7 @@ umfassen sollte.
 
 \section{Lokale Ungleichungen}
 \begin{definition}
-	Sei $z \in \mathcal{N}_h$ Knoten. Definiere $\omega_z \subset \Omega$ als
+	Sei $z \in \mathscr{N}_h$ Knoten. Definiere $\omega_z \subset \Omega$ als
 	\[
 	\omega_z = supp(\varphi_z)
 	\]
@@ -13,14 +13,40 @@ umfassen sollte.
 \end{definition}
 
 \begin{lemma}[Lokale Poincaré Ungleichung]
-	Sei $v \in H^1_D(\Omega)$ un $z\in \mathcal{N}_h.$ Sei $v_z= 0$ für $z\in \Gamma_D$ und 
+	Sei $v \in H^1_D(\Omega)$ un $z\in \mathscr{N}_h.$ Sei $v_z= 0$ für $z\in \Gamma_D$ und 
 	\[ v_z = |\omega_z|^{-1} \int_{\omega_z} v \quad dx
 	\]
-	sonst. Dann gibt es für alle $h > 0$ und $z \in \mathcal{N}_h$ eine Konstante $c_{p,z}>0$, sodass:
+	sonst. Dann gibt es für alle $h > 0$ und $z \in \mathscr{N}_h$ eine Konstante $c_{p,z}>0$, sodass:
 	\[
 	\|v-v_z\|_{L^2(\omega_z)}\leq c_{p,z}h_z\|\nabla v\|_{L^2(\omega_z)}.
 	\]
 \end{lemma}
+\textbf{Beweis:}
+\begin{itemize}
+	\item[i)] 
+	Für $z\in \mathscr{N}_h$ sei $\widehat{\omega}_z = h_z^{-1}(\omega_z - z)$. Dann ist nach Konstruktion $diam(\widehat{\omega}_z) = 1$ und
+	\[
+	\phi_z : \widehat{\omega}_z \rightarrow \omega_z, \quad \hat{x} \mapsto h_z\hat{x}+z
+	\]
+	affiner Diffeomorphismus mit $D\phi_z = h_zI$.
+	\item[ii)] mit der Standard Poincaré Ungleichung folgt für alle $\widehat{u}\in H^1(\widehat{\omega}_z)$
+	\[
+	\|\widehat{u}\|_{L^2(\widehat{\omega}_z)} \leq c_{p,z}\|\nabla \widehat{u}\|_{L^2(\widehat{\omega}_z)}
+	\]
+	wenn \[ \int_{\widehat{\omega}_z}\widehat{u}d\hat{x}=0 \text{ oder }\widehat{u}|_{\hat{\gamma}_z}
+	\]
+	für geschlossene Teilmenge ${\hat{\gamma}_z} \subset \p \widehat{\omega}_z$ mit positivem Flächenmaß
+	\item[iii)] Sei $v_z$ wie im Lemma definiert und $u= v-v_z\in H^1(\omega_z)$, dann erfüllt $\widehat{u} = u \circ \phi_z$ die Bedingungen für die Standard Poincaré Ungleichung auf $\widehat{\omega}_z$
+	\item[iv)] Mit der Transformationsformel folgt:
+	\begin{eqnarray*}
+		\int_{\omega_z} u^2dx&=& \int_{\widehat{\omega}_z} \widehat{u}^2 | detD\phi_z|d\hat{x} \\
+		&=& h_z^d\|\widehat{u}\|^2_{L^2(\widehat{\omega}_z)} \leq c^2_{p,z}h^d_z\|\nabla \widehat{u}\|^2_{L^2(\widehat{\omega}_z)} \\
+		&=&c^2_{p,z}h^d_z\int_{\widehat{\omega}_z}| \nabla (u\circ\phi_z)|^2 d\hat{x} = c^2_{p,z}h^d_z \int_{\widehat{\omega}_z}|D\phi_z^\top(\nabla u)\circ\phi_z|^2 d\hat{x} \\
+		&=& c^2_{p,z}h^d_zh^2_z\int_{\widehat{\omega}_z}|(\nabla u)\circ\phi_z|^2d\hat{x} 
+		=c^2_{p,z}h^2_z\int_{\omega_z}|\nabla u|^2dx
+	\end{eqnarray*} 
+\end{itemize}
+$\hfill \Box$
 
 \begin{lemma}[Lokale Spur Ungleichung]
 	Sei $S \in  \mathcal{S}_h$ und $T_S \in \mathscr{T}_h so, dass S \subset \p T_s$. Dann
@@ -31,17 +57,17 @@ umfassen sollte.
 \end{lemma}
 \section{Clément Quasi Interpolant}
 \begin{definition}
-    Sei $v \in L^1(\Omega) , z \in \mathcal{N}_h$
+    Sei $v \in L^1(\Omega) , z \in \mathscr{N}_h$
 	\[
 	v_z =  \left\{
 	\begin{array}{ll}
-		|\omega_z|^{-1} \int_{\omega_z} v dx& \text{f\"ur } z \in \mathcal{N}_h \setminus \Gamma_D\\
-		0 &  \text{f\"ur } z \in \mathcal{N}_h \cap \Gamma_D
+		|\omega_z|^{-1} \int_{\omega_z} v dx& \text{f\"ur } z \in \mathscr{N}_h \setminus \Gamma_D\\
+		0 &  \text{f\"ur } z \in \mathscr{N}_h \cap \Gamma_D
 	\end{array}\right.
 	\]
 	Definiere den Clément Quasi Interpolant$\mathscr{J}_hv \in \mathscr{S}_D^1(\mathscr{T}_h)$ von v als
 	\begin{displaymath}
-		\mathscr{J}_hv = \sum_{z\in\mathcal{N}_h} v_z \varphi_z
+		\mathscr{J}_hv = \sum_{z\in \mathscr{N}_h} v_z \varphi_z
 	\end{displaymath}
 \end{definition}
 \begin{theorem}(Quasi Interpolant Abschätzung)
@@ -51,6 +77,57 @@ umfassen sollte.
 	\]
 	mit $h_\mathscr{T}: \Omega \rightarrow  \R \text{ und } h_\mathscr{S}: \cup \mathscr{S}_h \rightarrow  \R$, definiert durch $h_\mathscr{T}|_T = h_T \text{ und }  h_\mathscr{S}|_S = h_S$ \\ f\"ur alle $T\in\mathscr{T}_h, S\in\mathscr{S}_h$ 
 \end{theorem}
+\textbf{Beweis:}
+\begin{itemize}
+	\item[i)] Da $\sum_{\varphi\in\mathscr{N}_h}\varphi_z = 1$ in $\Omega$ ist $\sum_{z\in\mathscr{N}_h}\nabla \varphi_z=0$
+	\[
+	\nabla \mathscr{J}_hv = \nabla \sum_{z\in \mathscr{N}_h}v_z\varphi_z = \sum_{z\in \mathscr{N}_h}(v_z-v) \nabla\varphi_z
+	\]
+	da $supp(\varphi_z)=\omega_z$
+	\begin{eqnarray*}
+		\| \nabla \mathscr{J}_hv\| &=& \int_{\Omega}(\sum_{z\in \mathscr{N}_h}(v_z-v) \nabla\varphi_z)\cdot \nabla \mathscr{J}_hvdx\\
+		&\leq& \sum_{z\in \mathscr{N}_h}\int_{\omega_z}|v_z-v| |\nabla\varphi_z||\nabla \mathscr{J}_hv|dx
+	\end{eqnarray*}
+Die Inversenabschätzung liefert für alle z
+\[
+\|\nabla\varphi_z\|_{L^\infty(\omega_z)}\leq c_{inv}h^{-1}_z\|\varphi_z\|_{L^\infty(\omega_z)} =c_{inv}h^{-1}_z.
+\]
+Mit Hölder-,Cauchy-Schwarz- und der lokalen Poincaréungleichung folgt
+\begin{eqnarray*}
+	\|\nabla\mathscr{J}_hv\|^2 &\leq&\sum_{z\in \mathscr{N}_h}\|v_z-v\|_{L^2(\omega_z)} \|\nabla\varphi_z\|_{L^\infty(\omega_z)}\|\nabla \mathscr{J}_hv\|_{L^2(\omega_z)}\\
+	&\leq&c_{inv}c_p\sum_{z\in \mathscr{N}_h}\|\nabla v\|_{L^2(\omega_z)} \|\nabla \mathscr{J}_hv\|_{L^2(\omega_z)} \\
+	&\leq&c_{inv}c_p(\sum_{z\in \mathscr{N}_h}\|\nabla v\|_{L^2(\omega_z)}^2)^{1/2} (\sum_{z\in \mathscr{N}_h} \|\nabla \mathscr{J}_hv\|_{L^2(\omega_z)}^2)^{1/2} \\
+	&\leq&c_{inv}c_p(d+1)\|\nabla v\| \|\nabla \mathscr{J}_hv\|
+\end{eqnarray*} 
+In der letzten Abschätzung folgt aus endlicher Überlappung der $\omega_z$
+\[
+\sum_{z\in \mathscr{N}_h}\|\nabla v\|_{L^2(\omega_z)}^2 \leq (d+1)\sum_{T\in\mathscr{T}_h} \|\nabla v\|^2_{L^2(T)} = (d+1)\|\nabla v\|^2
+\]
+Teilen durch $\|\nabla\mathscr{J}_hv\|$ liefert die erste Abschätzung
+\item[ii)] Für beliebiges $\psi \in L^2(\Omega)$ gilt
+\begin{eqnarray*}
+	\int_{\Omega}\psi(v-\mathscr{J}_hv)dx &=& \int_{\Omega}\psi(v-\sum_{z\in \mathscr{N}_h}v_z\varphi_z)dx \\
+	 &=& \int_{\Omega}\psi(\sum_{z\in \mathscr{N}_h}v\varphi_z-\sum_{z\in \mathscr{N}_h}v_z\varphi_z)dx\\
+	 &=&\sum_{z\in \mathscr{N}_h}\int_{\omega_z} \psi (v-v_z)\varphi_zdx \\
+	 &\leq&\sum_{z\in \mathscr{N}_h}\int_{\omega_z} |\psi| |v-v_z|dx \\
+	 &\leq&c_p \sum_{z\in \mathscr{N}_h}\|\psi\|_{L^2(\omega_z)}h_z\|\nabla v\|_{L^2(\omega_z)}\\
+	 &\leq&c_pc_{loc}\sum_{z\in \mathscr{N}_h}\|h_{\mathscr{T}}\psi\|_{L^2(\omega_z)}\|\nabla v\|_{L^2(\omega_z)}\\
+	  &\leq&c_pc_{loc}(d+1)\|h_{\mathscr{T}}\psi\|\|\nabla v\|
+\end{eqnarray*}
+Durch geschicktes Wählen von $\psi = h_{\mathscr{T}}^{-2}(v-\mathscr{J}_hv)$ folgt die zweite Abschätzung
+\item[iii)]
+Für $S\in\mathscr{S}_h$ und $T_S\in\mathscr{T}_h$ so, dass $S\subset\p T_S$. Mit der lokalen Spurungleichung folgt
+\begin{eqnarray*}
+	\|h_{\mathscr{S}}^{1/2}(v-\mathscr{J}_hv)\|^2_{L^2(\cup \mathscr{S}_h)} &=& \sum_{S\in\mathscr{S}_h} h_S^{-1}\|v-\mathscr{J}_hv\|^2_{L^2(S)}\\
+	 &=&c^2_{Tr} \sum_{S\in\mathscr{S}_h} (h_S^{-2}\|v-\mathscr{J}_hv\|^2_{L^2(T_S)} +
+	 \|\nabla (v-\mathscr{J}_hv)\|^2_{L^2(T_S)})\\
+	 &\leq&dc^2_{Tr} \sum_{T\in\mathscr{T}_h} (c_{loc}^2h_T^{-2}\|v-\mathscr{J}_hv\|^2_{L^2(T)} + \|\nabla (v-\mathscr{J}_hv)\|^2_{L^2(T)})\\
+	 &=&dc^2_{Tr} (c_{loc}^2\|h_{\mathscr{T}}^{-2}(v-\mathscr{J}_hv)\|^2+ \|\nabla (v-\mathscr{J}_hv)\|^2)\\
+	 &\leq&dc^2_{Tr}(c_{loc}^2c_1^2+c_2^2)\|\nabla v\|^2.
+\end{eqnarray*}
+liefert die dritte Abschätzung.
+$\hfill \Box$
+\end{itemize}
 \section{A Posteroiori Fehlerabschätzung}
 \begin{definition}[Sprung]
 	Sei $u_h\in\mathscr{S}^1(\mathscr{T}_h)$ und $S\in\mathscr{S}_h$ mit $S=T_1 \cap T_2$ für $T_1,T_2 \in \mathscr{T}_h$ verschieden, mit äußeren Normalen $n_{T_1,S},n_{T_2,S}$ auf S. Definiere den Sprung von $\nabla u_h$ über S als
