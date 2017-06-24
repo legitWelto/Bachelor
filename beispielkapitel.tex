@@ -1,8 +1,24 @@
-\chapter{Beispielkapitel}
-Zu Beginn eines Kapitels kann eine kurze Zusammenfassung des
-Inhalts des Kapitels stehen, die nicht mehr als zehn Zeilen
-umfassen sollte. 
+\chapter{Fehlerkontrolle}
+Ziel des Kapitels ist es, einen berechenbaren, verlässlichen und effizienten Fehlerindikator zu finden.
 
+\begin{definition}[Sprung]
+	Sei $u_h\in\mathscr{S}^1(\mathscr{T}_h)$ und $S\in\mathscr{S}_h$ mit $S=T_1 \cap T_2$ für $T_1,T_2 \in \mathscr{T}_h$ verschieden, mit äußeren Normalen $n_{T_1,S},n_{T_2,S}$ auf S. Definiere den Sprung von $\nabla u_h$ über S als
+	\[
+	\llbracket \nabla u_h \cdot n_S\rrbracket = \nabla u_h|_{T_1} \cdot n_{T_1,S} + \nabla u_h|_{T_2} \cdot n_{T_2,S}
+	\]
+	Setze $\llbracket \nabla u_h \cdot n_S\rrbracket = 0$ f\"ur $S\subset \Gamma_D$
+\end{definition}
+\begin{definition}[Verfeinerungsindikator]
+	Für $u_h \in \mathscr{S}^1(\mathscr{T}_h) \text{ und } T \in \mathscr{T}_h$, definiere Verfeinerungsindikator $\eta_T(u_h)$ durch
+	\[
+	\eta^2_T(u_h) = h^2_T\|f\|^2_{L^2(T)} + \sum_{S\in\mathscr{S}_h,S\subset\p T} h_S\|\llbracket \nabla u_h \cdot n_S\rrbracket\|^2_{L^2(S)} \]
+\end{definition}
+\begin{definition}[Fehlerschätzer]
+	Für $u_h \in \mathscr{S}^1(\mathscr{T}_h) \text{ und } \mathscr{T}_h$ definiere den Fehlerschätzer $\eta_\mathscr{R}$ durch
+	\[
+	\eta_\mathscr{R}^2(u_h)=\sum_{T\in\mathscr{T}_h} \eta^2_T(u_h)
+	\]
+\end{definition}
 \section{Lokale Ungleichungen}
 \begin{definition}
 	Sei $z \in \mathscr{N}_h$ Knoten. Definiere $\omega_z \subset \Omega$ als
@@ -129,27 +145,47 @@ liefert die dritte Abschätzung.
 $\hfill \Box$
 \end{itemize}
 \section{A Posteroiori Fehlerabschätzung}
-\begin{definition}[Sprung]
-	Sei $u_h\in\mathscr{S}^1(\mathscr{T}_h)$ und $S\in\mathscr{S}_h$ mit $S=T_1 \cap T_2$ für $T_1,T_2 \in \mathscr{T}_h$ verschieden, mit äußeren Normalen $n_{T_1,S},n_{T_2,S}$ auf S. Definiere den Sprung von $\nabla u_h$ über S als
-	\[
-	\llbracket \nabla u_h \cdot n_S\rrbracket = \nabla u_h|_{T_1} \cdot n_{T_1,S} + \nabla u_h|_{T_2} \cdot n_{T_2,S}
-	\]
-	Setze $\llbracket \nabla u_h \cdot n_S\rrbracket = 0$ f\"ur $S\subset \Gamma_D$
-\end{definition}
-\begin{definition}[Verfeinerungsindikator]
-	Für $u_h \in \mathscr{S}^1(\mathscr{T}_h) \text{ und } T \in \mathscr{T}_h$, definiere Verfeinerungsindikator $\eta_T(u_h)$ durch
-	\[
-	\eta^2_T(u_h) = h^2_T\|f\|^2_{L^2(T)} + \sum_{S\in\mathscr{S}_h,S\subset\p T} h_S\|\llbracket \nabla u_h \cdot n_S\rrbracket\|^2_{L^2(S)} \]
-	und den Fehlerschätzer $\eta_\mathscr{R}$ durch
-	\[
-	\eta_\mathscr{R}^2(u_h)=\sum_{T\in\mathscr{T}_h} \eta^2_T(u_h)
-	\]
-\end{definition}
 \begin{theorem}[A Posteriori Fehlerabschätzung]
 	Sei $u\in H^1_0(\Omega)$ schwache Lösung des Poisson-Problems \[-\Delta u = f ,\quad \Gamma_D = \p \Omega \text{ und } u|_{\p \Omega} = 0, \] und $u_h \in \mathscr{S}^1_0(\mathscr{T}_h)$ Galerkin-Approximation von u. Dann gibt es $c_R > 0$ , sodass:
 	\[\|\nabla(u-u_h)\|\leq c_R\eta_\mathscr{R}(u_h)
 	\]
 \end{theorem}
+\textbf{Beweis:}
+Sei $e = u-u_h$ der Approximationsfehler. Dann folgt aus der Galerkinorthogonalität und da u schwache Lösung des Possoinproblems:
+\begin{eqnarray*}
+	\|\nabla e\|^2 &=& \int_{\Omega}\nabla e \cdot \nabla (e-\mathscr{J}_he)dx \\
+	&=&\int_{\Omega} \nabla u \cdot \nabla (e-\mathscr{J}_he)dx -\int_{\Omega} \nabla u_h \cdot \nabla (e-\mathscr{J}_he)dx \\
+	&=&\int_{\Omega} f (e-\mathscr{J}_he)dx -\int_{\Omega} \nabla u_h \cdot \nabla (e-\mathscr{J}_he)dx
+\end{eqnarray*}
+Da $\Cup T = \Omega$,  $u|_T$ affin und somit $\Delta u|_T=0$ für alle $T\in\mathscr{T}_h$ erhalten wir mit partieller Integration
+\begin{eqnarray*}
+	\int_{\Omega}\nabla u_h\cdot\nabla (e-\mathscr{J}_he) dx &=& \sum_{T\in\mathscr{T}_h} \int_{T} \nabla u_h \cdot \nabla (e-\mathscr{J}_he) dx \\
+	&=& \sum_{T\in\mathscr{T}_h} \left(\int_{T} (-\Delta u_h) (e-\mathscr{J}_he) dx +\int_{\p T} (\nabla u_h \cdot n_T) (e-\mathscr{J}_he) ds\right) \\
+	&=&\sum_{T\in\mathscr{T}_h} \int_{\p T} (\nabla u_h \cdot n_T) (e-\mathscr{J}_he) ds
+\end{eqnarray*}
+In der Summe wird über jede innere Seite zwei mal integriert mit $u_h$ bezüglich der anliegenden Elemente und inversen Normalen. $(e-\mathscr{J}_he)$ ist bezüglich beider Elemente auf der Seite gleich. Da $(e-\mathscr{J}_he)|_{\p \Omega}=0$ und aus der Definition vom Sprung, folgt
+\[
+\sum_{T\in\mathscr{T}_h} \int_{\p T} (\nabla u_h \cdot n_T) (e-\mathscr{J}_he) ds =
+\sum_{S\in\mathscr{S}_h} \int_{S} \llbracket \nabla u_h \cdot n_S\rrbracket (e-\mathscr{J}_he) ds
+\]
+Mit Hölder- und Schwarz Ungleichungen folgt
+\begin{eqnarray*}
+	\|\nabla e\|^2 &=&  \sum_{T\in\mathscr{T}_h} \int_{T} f (e-\mathscr{J}_he)dx - \sum_{S\in\mathscr{S}_h} \int_{S} \llbracket \nabla u_h \cdot n_S\rrbracket (e-\mathscr{J}_he) ds \\
+	&\leq&  \sum_{T\in\mathscr{T}_h}\|f\|_{L^2(T)} \|e-\mathscr{J}_he\|_{L^2(T)} + \sum_{S\in\mathscr{S}_h} \|\llbracket \nabla u_h \cdot n_S\rrbracket\|_{L^2(S)} \|e-\mathscr{J}_he\|_{L^2(S)}\\
+	&\leq& \left( \sum_{T\in\mathscr{T}_h}h_T^2\|f\|_{L^2(T)}^2\right)^{1/2}\left( \sum_{T\in\mathscr{T}_h}h_T^{-2}\|e-\mathscr{J}_he\|_{L^2(T)}^2\right)^{1/2} \\
+	&&+ \left(\sum_{S\in\mathscr{S}_h} h_S\|\llbracket \nabla u_h \cdot n_S\rrbracket\|_{L^2(S)}^2\right)^{1/2} \left(\sum_{S\in\mathscr{S}_h}h_S^{-1}\|e-\mathscr{J}_he\|_{L^2(S)}^2\right)^{1/2}\\
+	&\leq& \left( \sum_{T\in\mathscr{T}_h}h_T^2\|f\|_{L^2(T)}^2\right)^{1/2}\|h_{\mathscr{T}_h}^{-1}e-\mathscr{J}_he\| \\
+	&&+ \left(\sum_{S\in\mathscr{S}_h} h_S\|\llbracket \nabla u_h \cdot n_S\rrbracket\|_{L^2(S)}^2\right)^{1/2} \|h_{\mathscr{S}_h}^{-1/2}e-\mathscr{J}_he\|_{L^2(\Cup \mathscr{S}_h)}
+\end{eqnarray*}
+Mit der Quasi Interpolant Abschätzung und der Ungleichung $a+b\leq \sqrt{2(a^2+b^2)}$ folgt
+
+\begin{eqnarray*}
+ \|\nabla e\| &\leq& c_{\mathscr{J}}\left( \sum_{T\in\mathscr{T}_h}h_T^2\|f\|_{L^2(T)}^2\right)^{1/2}
++ c_{\mathscr{J}}\left(\sum_{S\in\mathscr{S}_h} h_S\|\llbracket \nabla u_h \cdot n_S\rrbracket\|_{L^2(S)}^2\right)^{1/2} \\
+ &\leq& \sqrt{2}c_{\mathscr{J}}\left( \sum_{T\in\mathscr{T}_h}h_T^2\|f\|_{L^2(T)}^2
+ + \sum_{S\in\mathscr{S}_h} h_S\|\llbracket \nabla u_h \cdot n_S\rrbracket\|_{L^2(S)}^2\right)^{1/2}
+\end{eqnarray*}
+$\hfill \Box$
 \section{Effizienz}
 \begin{definition}
 	Für $S \in \mathscr{S}_h$ Seite, definiere 
