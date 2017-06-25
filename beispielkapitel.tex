@@ -218,3 +218,27 @@ $\hfill \Box$
 		c_E \eta_T^2(u_h)\leq \|\nabla (u-u_h)\|^2_{L^2(\omega_T)}
 	\] 
 \end{theorem}
+\textbf{Beweis:}
+\begin{itemize}
+	\item[i)] 
+	Für $T =conv\{z_1,z_2,...,z_{d+1}\} \in\mathscr{T}_h$ und $b_T = \varphi_{z_1}\varphi_{z_2}\cdots\varphi_{z_{d+1}}$ , dann gilt mit partieller Integration und $\Delta u_h|_T = 0, b_T|_{\p T} = 0$:
+	\[
+	\int_{\Omega} \nabla (u - u_h) \cdot \nabla b_Tdx =\int_{\Omega} f b_T dx
+	\]
+    f ist konstant auf T mit Wert $f_T$ und Vorzeichen $\sigma_T$ dann gilt
+    \[
+    \sigma_T\int_{T}f_Tb_Tdx=|f_T|\int_{T}b_Tdx=c_{e,1}|f_T||T|= c_{e,1}|T|^{1/2}\|f_T\|_{L^2(T)}
+    \]
+    Mit $c_{loc}h_T \leq |T|^{1/2}$, Hölderungleichung und $\|\nabla b_T\|_{L^2(T)} \leq c_{e,2}$ folgt
+    \[
+    h_T\|f\|_{L^2(T)}\leq \frac{c_{e,1}}{c_{loc}} |T|^{1/2}\|f\|_{L^2(T)} =\frac{\sigma_T}{c_{loc}}\int_{T}\nabla (u - u_h) \cdot \nabla b_Tdx \leq c_{el} \|\nabla (u-u_h)\|_{L^2(T)}
+    \]
+    \item[ii)]
+    Für $S =conv\{z_1,z_2,...,z_{d}\} = T_1 \Cap T_2$ und $b_S = \varphi_{z_1}\varphi_{z_2}\cdots\varphi_{z_{d}}$ , dann gilt mit partieller Integration und $\Delta u_h|_{T_j} = 0, b_T|_{\p T_j\setminus S} = 0$:
+    \begin{eqnarray*}
+    	\int_{\omega_S} \nabla (u-u_h)\cdot \nabla b_S dx &=& \int_{\omega_S} fb_Sdx -\left(\int_{T_1} \nabla u_h\cdot \nabla b_S dx + \int_{T_2} \nabla u_h\cdot \nabla b_S dx\right) \\
+    	&=& \int_{\omega_S} fb_Sdx - \left(\int_{S} (\nabla u_h\cdot n_{T_1}) b_S ds + \int_{S} (\nabla u_h\cdot n_{T_2}) b_S ds\right)\\
+    	&=& \int_{\omega_S} fb_Sdx - \int_{S} \llbracket \nabla u_h \cdot n_S\rrbracket b_S ds
+    \end{eqnarray*}
+	
+\end{itemize}
