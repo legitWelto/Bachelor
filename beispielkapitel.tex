@@ -1,5 +1,5 @@
 \chapter{Fehlerkontrolle}
-Ziel des Kapitels ist es, einen berechenbaren, verlässlichen und effizienten Fehlerindikator zu finden.
+Ziel des Kapitels ist es, einen berechenbaren, verlässlichen und effizienten Fehlerindikator zu finden. Die Erfahrung zeigt, dass die Größe des Winkels zwischen den zwei affinen Hyperflächen, welche von der Approximation auf den Triangulationselementen angenommen werden, ein guter Fehlerindikator sein könnte. 
 
 \begin{definition}[Sprung]
 	Sei $u_h\in\mathscr{S}^1(\mathscr{T}_h)$ und $S\in\mathscr{S}_h$ mit $S=T_1 \cap T_2$ für $T_1,T_2 \in \mathscr{T}_h$ verschieden, mit äußeren Normalen $n_{T_1,S},n_{T_2,S}$ auf S. Definiere den Sprung von $\nabla u_h$ über S als
@@ -19,7 +19,16 @@ Ziel des Kapitels ist es, einen berechenbaren, verlässlichen und effizienten Fe
 	\eta_\mathscr{R}^2(u_h)=\sum_{T\in\mathscr{T}_h} \eta^2_T(u_h)
 	\]
 \end{definition}
+Für $u$ Lösungen des Poisson-Problems $-\Delta u = f$ soll nun gezeigt werden, das gilt \\
+\begin{center}
+	\begin{tabular}{r c l l}
+		$\|\nabla(u-u_h)\|$ & $\leq$ & $c_1 \eta_\mathscr{R}(u_h)$ &\textbf{Verlässlichkeit} \\
+		$c_2 \eta_\mathscr{R}(u_h)$ &$\leq$& $\|\nabla(u-u_h)\|$ &\textbf{Effiziens} \\
+	\end{tabular}
+\end{center}
+Der Fehlerindikator muss beide dieser Ungleichungen erfüllen. Der triviale Indikator$\eta(u_h)=1$ ist verlässlich aber nicht effizient, während $\eta(u_h)=0$ effizient aber nicht verlässlich ist. Beide sind für die Fehlerkontrolle und als Verfeinerungsindikator ungeeignet.
 \section{Lokale Ungleichungen}
+Um die Verlässlichkeit zuzeigen, wird ein Resultat über den Clément-Quasi-Interpolanten benötigt. Für dieses Resultat werden zunächst die lokale Poincaré- und lokale Spur-Ungleichung vorgestellt.
 \begin{definition}
 	Sei $z \in \mathscr{N}_h$ Knoten. Definiere $\omega_z \subset \Omega$ als
 	\[
@@ -27,6 +36,12 @@ Ziel des Kapitels ist es, einen berechenbaren, verlässlichen und effizienten Fe
 	\]
 	Und $h_z = diam(\omega_z)$ Durchmesser von $\omega_z$
 \end{definition}
+\begin{bemerkung}
+	Es gibt $c_{loc} > 0$ so, dass für alle $T \in\mathscr{T}_h, z\in\mathscr{N}_h\cap T$ gilt
+	\[
+	h_z\leq c_{loc}h_T
+	\]
+\end{bemerkung}
 
 \begin{lemma}[Lokale Poincaré Ungleichung]
 	Sei $v \in H^1_D(\Omega)$ un $z\in \mathscr{N}_h.$ Sei $v_z= 0$ für $z\in \Gamma_D$ und 
@@ -234,11 +249,35 @@ $\hfill \Box$
     h_T\|f\|_{L^2(T)}\leq \frac{c_{e,1}}{c_{loc}} |T|^{1/2}\|f\|_{L^2(T)} =\frac{\sigma_T}{c_{loc}}\int_{T}\nabla (u - u_h) \cdot \nabla b_Tdx \leq c_{el} \|\nabla (u-u_h)\|_{L^2(T)}
     \]
     \item[ii)]
-    Für $S =conv\{z_1,z_2,...,z_{d}\} = T_1 \Cap T_2$ und $b_S = \varphi_{z_1}\varphi_{z_2}\cdots\varphi_{z_{d}}$ , dann gilt mit partieller Integration und $\Delta u_h|_{T_j} = 0, b_T|_{\p T_j\setminus S} = 0$:
+    Für $S =conv\{z_1,z_2,...,z_{d}\} = T_1 \cap T_2$ und $b_S = \varphi_{z_1}\varphi_{z_2}\cdots\varphi_{z_{d}}$ , dann gilt mit partieller Integration und $\Delta u_h|_{T_j} = 0, b_T|_{\p T_j\setminus S} = 0$:
     \begin{eqnarray*}
     	\int_{\omega_S} \nabla (u-u_h)\cdot \nabla b_S dx &=& \int_{\omega_S} fb_Sdx -\left(\int_{T_1} \nabla u_h\cdot \nabla b_S dx + \int_{T_2} \nabla u_h\cdot \nabla b_S dx\right) \\
     	&=& \int_{\omega_S} fb_Sdx - \left(\int_{S} (\nabla u_h\cdot n_{T_1}) b_S ds + \int_{S} (\nabla u_h\cdot n_{T_2}) b_S ds\right)\\
     	&=& \int_{\omega_S} fb_Sdx - \int_{S} \llbracket \nabla u_h \cdot n_S\rrbracket b_S ds
     \end{eqnarray*}
-	
+    $\llbracket \nabla u_h \cdot n_S\rrbracket$ ist konstant auf S. Sei $\sigma_S$ Vorzeichen von $\llbracket \nabla u_h \cdot n_S\rrbracket$. Dann gilt
+    \[
+    \sigma_S \int_{S} \llbracket \nabla u_h \cdot n_S\rrbracket b_S ds = c_{S,1}|\llbracket \nabla u_h \cdot n_S\rrbracket||S| =c_{S,1}\|\llbracket \nabla u_h \cdot n_S\rrbracket\|_{L^2(S)}|S|^{1/2}
+    \] 
+	Mit Hölder-Ungleichung und $\|\nabla b_S\|_{L^2(\omega_S)} \leq c_{S,2}$ und $\|b_S\|_{L^2(\omega_S)} \leq |\omega_S|^{1/2}$ gilt
+	\begin{eqnarray*}
+		c_{S,1}\|\llbracket \nabla u_h \cdot n_S\rrbracket\|_{L^2(S)}|S|^{1/2} &=& -\sigma_S\int_{\omega_S} \nabla (u-u_h)\cdot \nabla b_S dx +\sigma_S\int_{\omega_S} fb_Sdx \\
+		&\leq& c_{S,2} \|\nabla (u-u_h)\|_{L^2(\omega_S)} + |\omega_S|^{1/2}\|f\|_{L^2(\omega_S)}
+	\end{eqnarray*}
+	Mit $h_S =|S|$ und $|\omega_S|^{1/2} \leq c_{loc}h_S$ finden wir $c_{side}>0$ sodass	
+	\[
+	c_{side}^{-1}h_S^{1/2} \|\llbracket \nabla u_h \cdot n_S\rrbracket\|_{L^2(S)} \leq \|\nabla (u-u_h)\|_{L^2(\omega_S)} +h_S\|f\|_{L^2(\omega_S)}
+	\]
+	\item[iii)]
+	Kombinieren von i) und ii) und $a+b\leq \sqrt{2(a^2+b^2)}$ zeigt die Behauptung
+	\begin{eqnarray*}
+		\eta^2_T(u_h) &=& h^2_T\|f\|^2_{L^2(T)} + \sum_{S\in\mathscr{S}_h,S\subset\p T} h_S\|\llbracket \nabla u_h \cdot n_S\rrbracket\|^2_{L^2(S)} \\
+		&\leq& c_{el}^2 \|\nabla (u-u_h)\|_{L^2(T)}^2 + \sum_{S\in\mathscr{S}_h,S\subset\p T}\|\nabla (u-u_h)\|_{L^2(\omega_S)}^2 +h_S^2\|f\|_{L^2(\omega_S)}^2\\
+		&\leq&  c_E^{-2}\|\nabla (u-u_h)\|_{L^2(\omega_T)}^2
+	\end{eqnarray*}
+$\hfill \Box$
 \end{itemize}
+Da sich die $\omega_T$ nur endlich überlappen, folgt die Effizienzabschätzung
+\[
+\eta_\mathscr{R}(u_h) = \left( \sum_{T\in\mathscr{T}_h} \eta^2_T(u_h)\right)^{1/2} \leq \left( \sum_{T\in\mathscr{T}_h} c_E^{-2}\|\nabla (u-u_h)\|_{L^2(\omega_T)}^2\right)^{1/2} \leq c_E^{-1}(d+1)^{1/2} \|\nabla(u-u_h)\|
+\]
