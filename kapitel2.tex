@@ -1,0 +1,17 @@
+\chapter{Adaptiver Gitteralgorithmus}
+Mit berechenbaren Fehlerindikatoren die Verlässlichkeits- und Effizientsabschätzungen erfüllen, folgt ein Algorithmus zur effizienteren Approximation der Differentialgleichung. Dabei entsteht eine Folge von Triangulierungen. Von Glied zu Glied werden dabei die Elemente mit den größten Indikatoren verfeinert.
+\begin{algorithmus}[Lösen-Approximieren-Markieren-Verfeinern]
+	Wähle $\mathscr{T}_0, \theta\in (0,1],\varepsilon_{stop}>0$. Setze $k=0$.
+	\begin{itemize}
+		\item[(1)] berechne Approximation $u_k\in\mathscr{S}_0^1(\mathscr{T}_k)$
+		\item[(2)] berechne $\eta_T(u_k)$ für alle $T\in\mathscr{T}_k$
+		\item[(3)] wenn $\eta_{\mathscr{R}}(u_k) \leq \varepsilon$ dann stopp
+		\item[(4)] wähle Menge $M_k\subset\mathscr{T}_k$ sodass
+		\[ \sum_{T\in M_k} \eta_T^2(u_k) \geq \theta\sum_{T\in\mathscr{T}_k}\eta_T^2(u_k)\]
+		\item[(5)] verfeinere jedes $T\in M_k$ und anliegende Elemente, um so neue Triangulierung $\mathscr{T}_{k+1}$ zu erhalten
+		\item[(6)] $k \rightarrow k + 1$ und weiter mit (1)
+	\end{itemize}
+\end{algorithmus}
+Im Schritt (5) müssen nach dem Verfeinern der Elemente in $M_k$ noch weitere Elemente verfeinert werden, um sicher zu stellen, dass eine konforme Triangulierung ohne hängende Knotenpunkte entsteht. Dafür können verschiedene Strategien verwendet werden.
+\section{Red-Green-Blue Verfeinerung}
+\section{Bisectionsverfahren}
