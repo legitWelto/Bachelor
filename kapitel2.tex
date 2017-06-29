@@ -13,5 +13,13 @@ Mit berechenbaren Fehlerindikatoren die Verlässlichkeits- und Effizientsabschä
 	\end{itemize}
 \end{algorithmus}
 Im Schritt (5) müssen nach dem Verfeinern der Elemente in $M_k$ noch weitere Elemente verfeinert werden, um sicher zu stellen, dass eine konforme Triangulierung ohne hängende Knotenpunkte entsteht. Dafür können verschiedene Strategien verwendet werden.
-\section{Red-Green-Blue Verfeinerung}
+\section{Rot-Grün-Blau Verfeinerung}
+\begin{algorithmus}[2d Rot-Grün-Blau Verfeinerung]
+    Sei $M_k\subset \mathscr{T}_k$ Menge der zu verfeinernden Elemente.
+	\begin{itemize}
+		\item[(1)] Markiere alle Seiten $S \in \mathscr{S}_k$ mit $S \subset \p T\in M_k$
+		\item[(2)] Markiere weitere Seiten, sodass für alle markierten Seiten $S\subset \p T$  auch die längste Seite von T
+		\item[(3)] Verfeinere Elemente je nach Anzahl markierter Seiten mit  Rot-,Blau- oder Grünverfeinerung für drei ,zwei oder einer Seite markiert.
+	\end{itemize}
+\end{algorithmus}
 \section{Bisectionsverfahren}
