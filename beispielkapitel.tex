@@ -1,6 +1,7 @@
 \chapter{Fehlerkontrolle}
 Ziel des Kapitels ist es, einen berechenbaren, verlässlichen und effizienten Fehlerindikator zu finden. Die Erfahrung zeigt, dass die Größe des Winkels zwischen den zwei affinen Hyperflächen, welche von der Approximation auf den Triangulationselementen angenommen werden, ein guter Fehlerindikator sein könnte. 
 
+\section{A Posteriori Fehlerschätzer}
 \begin{definition}[Sprung]
 	Sei $u_h\in\mathscr{S}^1(\mathscr{T}_h)$ und $S\in\mathscr{S}_h$ mit $S=T_1 \cap T_2$ für $T_1,T_2 \in \mathscr{T}_h$ verschieden, mit äußeren Normalen $n_{T_1,S},n_{T_2,S}$ auf S. Definiere den Sprung von $\nabla u_h$ über S als
 	\[
@@ -87,6 +88,7 @@ $\hfill \Box$
 	\]
 \end{lemma}
 \section{Clément Quasi Interpolant}
+Im Gegensatz zum nodalen Interpolanten wird der Clément Quasi Interpolant über Mittelwerte definiert. Dies führt dazu, dass an Knoten nicht der exakte Wert angenommen wird. Dafür können auch nicht stetige Funktionen interpoliert werden.
 \begin{definition}
     Sei $v \in L^1(\Omega) , z \in \mathscr{N}_h$
 	\[
@@ -159,8 +161,8 @@ Für $S\in\mathscr{S}_h$ und $T_S\in\mathscr{T}_h$ so, dass $S\subset\p T_S$. Mi
 liefert die dritte Abschätzung.
 $\hfill \Box$
 \end{itemize}
-\section{A Posteroiori Fehlerabschätzung}
-\begin{theorem}[A Posteriori Fehlerabschätzung]
+\section{Verlässlichkeitsabschätzung}
+\begin{theorem}[Verlässlichkeitsabschätzung]
 	Sei $u\in H^1_0(\Omega)$ schwache Lösung des Poisson-Problems \[-\Delta u = f ,\quad \Gamma_D = \p \Omega \text{ und } u|_{\p \Omega} = 0, \] und $u_h \in \mathscr{S}^1_0(\mathscr{T}_h)$ Galerkin-Approximation von u. Dann gibt es $c_R > 0$ , sodass:
 	\[\|\nabla(u-u_h)\|\leq c_R\eta_\mathscr{R}(u_h)
 	\]
@@ -202,6 +204,7 @@ Mit der Quasi Interpolant Abschätzung und der Ungleichung $a+b\leq \sqrt{2(a^2+
 \end{eqnarray*}
 $\hfill \Box$
 \section{Effizienz}
+Für die Effizienzabschätzung werden zunächst Hilfsaussagen bewiesen.
 \begin{definition}
 	Für $S \in \mathscr{S}_h$ Seite, definiere 
 	\[
@@ -229,13 +232,21 @@ $\hfill \Box$
 \end{lemma}
 \textbf{Beweis:}
 \begin{itemize}
-	\item[i)] \[
+	\item[i)] Damit $b_T\neq0$ müssen alle $\varphi_{z_{i}}\neq 0$. Somit folgt\[
 	supp(b_T) = \cap_{i=1}^{d+1}supp(\varphi_{z_i})\subset T
 	\]
-	\item[ii)]\[
+	\item[ii)] Mit der Standard-Integralabschätzung folgt \[
 	\int_{T}b_T \leq \max_{x\in T}b_T \int_{T}1 dx \leq |T|
 	\]
-	\item[iii)]
+	\item[iii)] Mit Standardabschätzung folgt \[
+	\|b_T\| \leq \left(\int_{T}b_T^2dx\right)^{1/2} \leq \sqrt{|T|}\leq h_T^d
+	\] Weiter gilt mit der Transformationsformel auf das Referenzelement $\hat{T}$
+	\begin{eqnarray*}
+		\|\nabla b_T\| &=& \int_{\hat{T}} |\nabla b_{T}\circ \phi_z|^2 | detD\phi_z|d\hat{x} = h_T^dh^{-2}_T\int_{\hat{T}} |\nabla (b_T\circ \phi_z)|^2 d\hat{x} \\
+		&=& h^{-2}_T h_T^d\| \nabla \widehat{b}_{\hat{T}}\|_{L^2(\hat{T})} \leq c h^{-2}_T h_T^d \|\widehat{b}_{\hat{T}}\|_{L^2(\hat{T})} \\
+		&=& ch^{-2}_T\int_{\hat{T}} | (b_T\circ \phi_z)|^2 | detD\phi_z| d\hat{x}= ch^{-2}_T \| b_T\|
+	\end{eqnarray*}
+	Mit beiden Ungleichungen folgt die Behauptung.
 \end{itemize}
 für $b_S$ analog
 $\hfill \Box$
