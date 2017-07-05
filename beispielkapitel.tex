@@ -81,12 +81,26 @@ Um die Verlässlichkeit zuzeigen, wird ein Resultat über den Clément-Quasi-Int
 $\hfill \Box$
 
 \begin{lemma}[Lokale Spur Ungleichung]
-	Sei $S \in  \mathcal{S}_h$ und $T_S \in \mathscr{T}_h so, dass S \subset \p T_s$. Dann
+	Sei $S \in  \mathcal{S}_h$ und $T_S \in \mathscr{T}_h$ so, dass $S \subset \p T_s$. Dann
 	gibt es die Konstante $c_{Tr} > 0$, sodass für alle $v\in H^1(\Omega)$ gilt:
 	\[
 	\|v\|^2_{L^2(S)} \leq c^2_{Tr}(h_S^{-1}\|v\|^2_{L^2(T_S)}+h_S\|\nabla v\|^2_{L^2(T_S)}).
 	\]
 \end{lemma}
+\textbf{Beweis:}
+Sei $\hat{S}$ die S entsprechende Seite auf dem Referenzelement $\hat{T}$. Auf dem Referenzdreieck gilt die Spurungleichung
+\[
+\|\hat{v}\|^2_{L^2(\hat{S})} \leq c\|\hat{v}\|_{L^2(\hat{T})}\|\hat{v}\|_{H^1(\hat{T})}
+\]
+Nach der Transformation auf T
+\[
+\|v\|^2_{L^2(S)} \leq c\|v\|_{L^2(T)}(\|\nabla v\|_{L^2(T)}+h_S^{-1}\|v\|_{L^2(T)})
+\]
+Daraus folgt
+\[
+\|v\|^2_{L^2(S)} \leq c^2(h_S^{-1}\|v\|^2_{L^2(T)}+h_S\|v\|^2_{H^1(T)})
+\]
+$\hfill \Box$
 \section{Clément Quasi Interpolant}
 Im Gegensatz zum nodalen Interpolanten wird der Clément Quasi Interpolant über Mittelwerte definiert. Dies führt dazu, dass an Knoten nicht der exakte Wert angenommen wird. Dafür können auch nicht stetige Funktionen interpoliert werden.
 \begin{definition}
