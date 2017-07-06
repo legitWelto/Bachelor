@@ -9,6 +9,12 @@ Ziel des Kapitels ist es, einen berechenbaren, verlässlichen und effizienten Fe
 	\]
 	Setze $\llbracket \nabla u_h \cdot n_S\rrbracket = 0$ f\"ur $S\subset \Gamma_D$
 \end{definition}
+\begin{figure}[!htbp]
+	\begin{center}
+		\includegraphics[width=16cm]{pics/Sprung.png}
+	\end{center}
+	\caption{Zwei benachbarte Elemente mit darüberliegender Approximation(links) Schnitt entlang der Normalen mit großen(durchgezogene Linie) und kleinem (gestrichelte Linie) Sprung(rechts)}
+\end{figure}
 \begin{definition}[Verfeinerungsindikator]
 	Für $u_h \in \mathscr{S}^1(\mathscr{T}_h) \text{ und } T \in \mathscr{T}_h$, definiere Verfeinerungsindikator $\eta_T(u_h)$ durch
 	\[
@@ -61,6 +67,12 @@ Um die Verlässlichkeit zuzeigen, wird ein Resultat über den Clément-Quasi-Int
 	\phi_z : \widehat{\omega}_z \rightarrow \omega_z, \quad \hat{x} \mapsto h_z\hat{x}+z
 	\]
 	affiner Diffeomorphismus mit $D\phi_z = h_zI$.
+	\begin{figure}[!htbp]
+		\begin{center}
+			\includegraphics[width=15cm]{pics/omega.png}
+		\end{center}
+		\caption{Diffeomorphismus $\phi_z$ von $\widehat{\omega}_z$ nach $\omega_z$}
+	\end{figure}
 	\item[ii)] mit der Standard Poincaré Ungleichung folgt für alle $\widehat{u}\in H^1(\widehat{\omega}_z)$
 	\[
 	\|\widehat{u}\|_{L^2(\widehat{\omega}_z)} \leq c_{p,z}\|\nabla \widehat{u}\|_{L^2(\widehat{\omega}_z)}
@@ -264,6 +276,12 @@ Für die Effizienzabschätzung werden zunächst Hilfsaussagen bewiesen.
 \end{itemize}
 für $b_S$ analog
 $\hfill \Box$
+\begin{figure}[!htbp]
+	\begin{center}
+		\includegraphics[width=16cm]{pics/bubble.png}
+	\end{center}
+	\caption{$b_T$ auf einem Element(links) $b_S$ auf den an S anliegenden Elementen (rechts)}
+\end{figure}
 
 \begin{theorem}[Lokale Effizienz]
 	Sei $d=2, \Gamma_D = \p \Omega$ und $f\in L^2(\Omega)$ elementeweise konstant. Dann existiert eine Konstante $c_E > 0$, sodass für alle $T\in\mathscr{T}_h$ gilt
