@@ -8,13 +8,15 @@ Ziel des Kapitels ist es, einen berechenbaren, verlässlichen und effizienten Fe
 	\llbracket \nabla u_h \cdot n_S\rrbracket = \nabla u_h|_{T_1} \cdot n_{T_1,S} + \nabla u_h|_{T_2} \cdot n_{T_2,S}
 	\]
 	Setze $\llbracket \nabla u_h \cdot n_S\rrbracket = 0$ f\"ur $S\subset \Gamma_D$
-\end{definition}
+\end{definition} 
+
 \begin{figure}[!htbp]
 	\begin{center}
 		\includegraphics[width=16cm]{pics/Sprung.png}
 	\end{center}
 	\caption{Zwei benachbarte Elemente mit darüberliegender Approximation(links) Schnitt entlang der Normalen mit großen(durchgezogene Linie) und kleinem (gestrichelte Linie) Sprung(rechts)}
 \end{figure}
+
 \begin{definition}[Verfeinerungsindikator]
 	Für $u_h \in \mathscr{S}^1(\mathscr{T}_h) \text{ und } T \in \mathscr{T}_h$, definiere Verfeinerungsindikator $\eta_T(u_h)$ durch
 	\[
@@ -67,12 +69,14 @@ Um die Verlässlichkeit zuzeigen, wird ein Resultat über den Clément-Quasi-Int
 	\phi_z : \widehat{\omega}_z \rightarrow \omega_z, \quad \hat{x} \mapsto h_z\hat{x}+z
 	\]
 	affiner Diffeomorphismus mit $D\phi_z = h_zI$.
+	
 	\begin{figure}[!htbp]
 		\begin{center}
 			\includegraphics[width=15cm]{pics/omega.png}
 		\end{center}
 		\caption{Diffeomorphismus $\phi_z$ von $\widehat{\omega}_z$ nach $\omega_z$}
 	\end{figure}
+
 	\item[ii)] mit der Standard Poincaré Ungleichung folgt für alle $\widehat{u}\in H^1(\widehat{\omega}_z)$
 	\[
 	\|\widehat{u}\|_{L^2(\widehat{\omega}_z)} \leq c_{p,z}\|\nabla \widehat{u}\|_{L^2(\widehat{\omega}_z)}
