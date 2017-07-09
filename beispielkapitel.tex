@@ -12,7 +12,7 @@ Ziel des Kapitels ist es, einen berechenbaren, verlässlichen und effizienten Fe
 
 \begin{figure}[!htbp]
 	\begin{center}
-		\includegraphics[width=16cm]{pics/Sprung.png}
+		\includegraphics[width=12cm]{pics/Sprung.png}
 	\end{center}
 	\caption{Zwei benachbarte Elemente mit darüberliegender Approximation(links) Schnitt entlang der Normalen mit großen(durchgezogene Linie) und kleinem (gestrichelte Linie) Sprung(rechts)}
 \end{figure}
@@ -269,12 +269,12 @@ Für die Effizienzabschätzung werden zunächst Hilfsaussagen bewiesen.
 	\int_{T}b_T \leq \max_{x\in T}b_T \int_{T}1 dx \leq |T|
 	\]
 	\item[iii)] Mit Standardabschätzung folgt \[
-	\|b_T\| \leq \left(\int_{T}b_T^2dx\right)^{1/2} \leq \sqrt{|T|}\leq h_T^d
+	\|b_T\| \leq \left(\int_{T}b_T^2dx\right)^{1/2} \leq \sqrt{|T|}\leq h_T^{d/2}
 	\] Weiter gilt mit der Transformationsformel auf das Referenzelement $\hat{T}$
 	\begin{eqnarray*}
-		\|\nabla b_T\| &=& \int_{\hat{T}} |\nabla b_{T}\circ \phi_z|^2 | detD\phi_z|d\hat{x} = h_T^dh^{-2}_T\int_{\hat{T}} |\nabla (b_T\circ \phi_z)|^2 d\hat{x} \\
-		&=& h^{-2}_T h_T^d\| \nabla \widehat{b}_{\hat{T}}\|_{L^2(\hat{T})} \leq c h^{-2}_T h_T^d \|\widehat{b}_{\hat{T}}\|_{L^2(\hat{T})} \\
-		&=& ch^{-2}_T\int_{\hat{T}} | (b_T\circ \phi_z)|^2 | detD\phi_z| d\hat{x}= ch^{-2}_T \| b_T\|
+		\|\nabla b_T\|^2 &=& \int_{\hat{T}} |\nabla b_{T}\circ \phi_z|^2 | detD\phi_z|d\hat{x} = h_T^dh^{-2}_T\int_{\hat{T}} |\nabla (b_T\circ \phi_z)|^2 d\hat{x} \\
+		&=& h^{-2}_T h_T^d\| \nabla \widehat{b}_{\hat{T}}\|_{L^2(\hat{T})}^2 \leq c h^{-2}_T h_T^d \|\widehat{b}_{\hat{T}}\|_{L^2(\hat{T})}^2 \\
+		&=& ch^{-2}_T\int_{\hat{T}} | (b_T\circ \phi_z)|^2 | detD\phi_z| d\hat{x}= ch^{-2}_T \| b_T\|^2
 	\end{eqnarray*}
 	Mit beiden Ungleichungen folgt die Behauptung.
 \end{itemize}
@@ -286,7 +286,7 @@ $\hfill \Box$
 	\end{center}
 	\caption{$b_T$ auf einem Element(links) $b_S$ auf den an S anliegenden Elementen (rechts)}
 \end{figure}
-
+\newpage
 \begin{theorem}[Lokale Effizienz]
 	Sei $d=2, \Gamma_D = \p \Omega$ und $f\in L^2(\Omega)$ elementeweise konstant. Dann existiert eine Konstante $c_E > 0$, sodass für alle $T\in\mathscr{T}_h$ gilt
 	\[

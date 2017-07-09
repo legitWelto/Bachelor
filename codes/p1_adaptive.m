@@ -1,5 +1,5 @@
 function p1_adaptive(red) % Nb = []; d = 2;
-eps_stop = 1e-2; error_bound = 1; theta = 0.8;
+eps_stop = 1e-2; error_bound = 1; theta = 0.5;
 c4n = [-1,-1;0,-1;-1,0;0,0;1,0;-1,1;0,1;1,1];
 n4e = [1,2,4;4,3,1;3,4,7;7,6,3;4,5,8;8,7,4];
 Db = [1,2;2,4;4,5;5,8;8,7;7,6;6,3;3,1];
@@ -14,8 +14,7 @@ while error_bound > eps_stop
   [s,m] = fe_matrices(c4n,n4e);
   b = m*f(c4n);
   u(fNodes) = s(fNodes,fNodes)\b(fNodes);
-  trisurf(n4e,c4n(:,1),c4n(:,2),u);
-  view(45,45); waitforbuttonpress;
+  trisurf(n4e,c4n(:,1),c4n(:,2),u); view(0,90); pause(.05)
   %%% estimate
   eta = comp_estimators(c4n,n4e,Db,u);
   error_bound = sqrt(sum(eta.^2))

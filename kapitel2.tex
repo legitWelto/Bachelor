@@ -13,8 +13,10 @@ Mit berechenbaren Fehlerindikatoren die Verlässlichkeits- und Effizientsabschä
 	\end{itemize}
 \end{algorithmus}
 Im Schritt (5) müssen nach dem Verfeinern der Elemente in $M_k$ noch weitere Elemente verfeinert werden, um sicher zu stellen, dass eine konforme Triangulierung ohne hängende Knotenpunkte entsteht. Dafür können verschiedene Strategien verwendet werden.
+
 \section{Rot-Grün-Blau Verfeinerung}
 Da bei der Rot-Grün-Blau Verfeinerung immer die längste Seite verkürzt wird, ist sicher gestellt das die Dreiecke nicht degenerieren. Der Name Rot-Grün-Blau kommt von der Bezeichnung der Aufteilungen bei der drei, eine oder zwei Seiten halbiert werden (Abbildung \ref{dreieck})
+\newpage
 \begin{algorithmus}[Rot-Grün-Blau Verfeinerung]
     Sei $M_k\subset \mathscr{T}_k$ Menge der zu verfeinernden Elemente.
 	\begin{itemize}
@@ -39,8 +41,8 @@ Da bei der Rot-Grün-Blau Verfeinerung immer die längste Seite verkürzt wird, 
 \end{figure}
 
 \section{Bisektionsverfahren}
-Eine Alternative zur Rot-Grün-Blau Verfeinerung bietet die Bisektion.  Zu jedem Element wird ein Verfeinerungsknoten gespeichert. Beim Verfeinern eines Elements wird ein neuer Knoten in der Mitte der Seite gegenüber dieses Knotens erzeugt und mit dem Verfeinerungsknoten verbunden. Für die zwei so entstandenen Elemente ist der neu erzeugte Knoten der Verfeinerungsknoten. Es werden dabei erst dann Elemente verfeinert, wenn die Verfeinerungsseite, also
-die Seite gegenüber des Verfeinerungsknotens, entweder auf dem Rand liegt oder Verfeinerungsseite des anliegenden Elements ist. So bleibt die Triangulierung in jedem Schritt regulär.
+Eine Alternative zur Rot-Grün-Blau Verfeinerung bietet die Bisektion.  Zu jedem Element wird ein Verfeinerungsknoten gespeichert. Beim Verfeinern eines Elements wird ein neuer Knoten in der Mitte der Seite gegenüber dieses Knotens erzeugt und mit dem Verfeinerungsknoten verbunden. Für die zwei so entstandenen Elemente ist der neu erzeugte Knoten der Verfeinerungsknoten (Abbildung \ref{schbisek}). Es werden dabei erst dann Elemente verfeinert, wenn die Verfeinerungsseite, also die Seite gegenüber des Verfeinerungsknotens, entweder auf dem Rand liegt oder Verfeinerungsseite des anliegenden Elements ist. So bleibt die Triangulierung in jedem Schritt regulär (Abbildung \ref{bisec}).
+\newpage
 \begin{algorithmus}[newest Vertex Bisektion]
 	Sei $T\in \mathscr{T}_k$ mit Verfeinerungsseite $S$ zu verfeinerndes Element.
 	\begin{itemize}
@@ -55,14 +57,14 @@ Nach Schritt 2 ist garantiert, dass S Verfeinerungsseite von D ist. \\
 	\begin{center}
 		\includegraphics[width=16cm]{pics/bisec1.png}
 	\end{center}
-	\caption{Schrittweise Verfeinerung eines Elements mithilfe von Bisektion}
+	\caption{\label{schbisek}Schrittweise Verfeinerung eines Elements mithilfe von Bisektion}
 \end{figure}
 
 \begin{figure}[!htbp]
 	\begin{center}
 		\includegraphics[width=16cm]{pics/bisec2.png}
 	\end{center}
-	\caption{Verfeinerung eines Elements (markiert) einer Triangulierung und weiteren Elementen, um hängende Knoten zu verhindern, mithilfe von newest Vertex Bisektion}
+	\caption{\label{bisec}Verfeinerung eines Elements (markiert) einer Triangulierung und weiteren Elementen, um hängende Knoten zu verhindern, mithilfe von newest Vertex Bisektion}
 \end{figure}
 
 Auch im dreidimensionalen findet das Bisektionsverfahren Anwendung. Im Gegensatz zum zweidimensionalen Analogon reicht ein Knoten jedoch nicht aus um eine eindeutige Teilung eines Elements zu bestimmen. Daher wird jedem Element eine Verfeinerungskante zugewiesen. Um ein Element zu teilen, wird nun ein Knoten am Mittelpunkt der Verfeinerungskante erzeugt. Die Ebene durch diesen neuen Knoten und die zwei Knoten, die der Verfeinerungskante gegenüberliegen teilt den Tetraeder in zwei neue Tetraeder. Verfahren bei denen die neue Verfeinerungskante immer eine der beiden zum neuen Knoten gegenüberliegenden Kanten ist, werden den newest Vertex Bisektionsverfahren zugeordnet wie zum Beispiel der Algorithmus von Kossaczky (Abbildung \ref{kos}).
