@@ -1,6 +1,6 @@
 \chapter{Adaptiver Gitteralgorithmus}
-Mit berechenbaren Fehlerindikatoren die Verlässlichkeits- und Effizientsabschätzungen erfüllen, folgt ein Algorithmus zur effizienteren Approximation der Differentialgleichung. Dabei entsteht eine Folge von Triangulierungen. Von Glied zu Glied werden dabei die Elemente mit den größten Indikatoren verfeinert.
-\begin{algorithmus}[Lösen-Approximieren-Markieren-Verfeinern]
+Mit berechenbaren Fehlerindikatoren die Verlässlichkeits- und Effizientsabschätzungen erfüllen, folgt ein Algorithmus zur effizienteren Approximation der Differentialgleichung nach dem Schema Lösen-Approximieren-Markieren-Verfeinern. Dabei entsteht eine Folge von Triangulierungen, indem von Glied zu Glied die Elemente mit den größten Indikatoren verfeinert werden.
+\begin{algorithmus}[Adaptives Gitter]
 	Wähle $\mathscr{T}_0, \theta\in (0,1],\varepsilon_{stop}>0$. Setze $k=0$.
 	\begin{itemize}
 		\item[(1)] berechne Approximation $u_k\in\mathscr{S}_0^1(\mathscr{T}_k)$

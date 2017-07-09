@@ -16,6 +16,7 @@ while error_bound > eps_stop
   [s,m] = fe_matrices(c4n,n4e);
   b = m*f(c4n);
   u(fNodes) = s(fNodes,fNodes)\b(fNodes);
+  toc
   %show_p1(c4n,n4e,Db,[],u,n); waitforbuttonpress;
   n = n+1;
   %%% estimate
@@ -27,8 +28,9 @@ while error_bound > eps_stop
   if error_bound > eps_stop
     [c4n,n4e,Db] = rgb_refine(c4n,n4e,Db,marked);
   end
+  error_bound
+  error_bound =0
 end
-toc
 size(c4n,1)
 n-1
 

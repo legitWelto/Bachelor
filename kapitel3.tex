@@ -3,7 +3,7 @@ In diesem Kapitel werden die Erkenntnisse aus den beiden vorangehenden Kapiteln 
 \[
 \Omega = [0,1]^2 \cap \left\{ r(\cos\phi,\sin\phi)| r\in\R,0<\phi<\frac{3 \pi}{2} \right\}
 \] 
-zu approximieren. Es wird also das Lösen-Approximieren-Markieren-Verfeinern Verfahren angewendet auf eine Anfangstriangulierung $\mathscr{T}_0$, zusehen in Abbildung \ref{grid}, um eine Folge von Triangulierungen und Approximationen auf diesen Triangulierungen zu erhalten. Als Verfeinerungsverfahren wird das Rot-Grün-Blau Verfahren genutzt.
+zu approximieren. Es wird also der adaptive Gitteralgorithmus angewendet auf eine Anfangstriangulierung $\mathscr{T}_0$, zusehen in Abbildung \ref{grid}, um eine Folge von Triangulierungen und Approximationen auf diesen Triangulierungen zu erhalten. Als Verfeinerungsverfahren wird das Rot-Grün-Blau Verfahren genutzt.
 
 \begin{figure}[!htbp]
 	\begin{center}
@@ -13,7 +13,7 @@ zu approximieren. Es wird also das Lösen-Approximieren-Markieren-Verfeinern Ver
 \end{figure}
 
 \section{Implementation}
-Im Folgenden ist eine Implementation des Lösen-Approximieren-Markieren-Verfeinern Verfahrens in \matlab \: zu finden. In Abbildung \ref{main} ist das Hauptprogramm zu sehen. Die Matrix c4n, coordinates for nodes, enthält in der i-ten Zeile die x und y Koordinate des i-ten Knotens im Gitter. Die Matrix n4e, nodes for elements, enthält in der i-ten Zeile die Nummer der Knoten, die zu dem i-ten Element gehören. Dabei ist die Kante vom ersten zum dritten Knoten die längste. Diese Konvention wird für das Rot-Grün-Blau Verfahren benötigt. Db, Dirichlet bondary, gibt in diesem Fall den Rand des Gebiets vor da der Neumann Rand leer ist. In jeder Zeile stehen die Nummern der Knoten die zu einer Kante auf dem Rand gehören. \\
+Im Folgenden ist eine Implementation des adaptiven Gitteralgorithmus in \matlab \: zu finden. In Abbildung \ref{main} ist das Hauptprogramm zu sehen. Die Matrix c4n, coordinates for nodes, enthält in der i-ten Zeile die x und y Koordinate des i-ten Knotens im Gitter. Die Matrix n4e, nodes for elements, enthält in der i-ten Zeile die Nummer der Knoten, die zu dem i-ten Element gehören. Dabei ist die Kante vom ersten zum dritten Knoten die längste. Diese Konvention wird für das Rot-Grün-Blau Verfahren benötigt. Db, Dirichlet bondary, gibt in diesem Fall den Rand des Gebiets vor da der Neumann Rand leer ist. In jeder Zeile stehen die Nummern der Knoten die zu einer Kante auf dem Rand gehören. \\
 Das Unterprogramm $\texttt{comp\_estimators}$, zu sehen in Abbildung \ref{indi}, berechnet die Verfeinerungsindikatoren
 \[
 \eta^2_T(u_k) = h^2_T\|f\|^2_{L^2(T)} + \sum_{S\subset\p T} h_S\|\llbracket \nabla u_k \cdot n_S\rrbracket\|^2_{L^2(S)} 
@@ -28,7 +28,7 @@ Das Unterprogramm $\texttt{sides}$, in Abbildung \ref{indi} unten, liefert eine 
 
 \begin{figure}[!htbp]
 	\lstinputlisting{codes/p1_adaptive.m}
-	\caption{ \label{main}Hauptprogramm des Lösen-Approximieren-Markieren-Verfeinern Verfahrens (oben) Konstruktion der Finite Elemente Verfahrensmatrix (unten)}
+	\caption{ \label{main}Hauptprogramm des adaptiven Gitteralgorithmus (oben) Konstruktion der Finite Elemente Verfahrensmatrix (unten)}
 \end{figure}
 \begin{figure}[!htbp]
 	\lstinputlisting{codes/p1_adaptive3.m}
@@ -41,7 +41,23 @@ Das Unterprogramm $\texttt{sides}$, in Abbildung \ref{indi} unten, liefert eine 
 \end{figure}
 \newpage \newpage \newpage  
 \section{Vergleich von Gitterfolgen}
-Mit dem vorgestellten \matlab \:Programm angewendet auf die Anfangstriangulierung $\mathscr{T}_0$, die durch die Mittgabe des Parameters \texttt{red=2} erzeugt wurde(Abbildung \ref{grid}), erhält man eine Gitterfolge. Verwendet man verschieden $\Theta$, so werden verschiedene Elemente markiert und man erhält unterschiedliche Gitterfolgen. In der Tabelle \ref{tabelle} sind Triangulierungsfolgen von $\Theta =0,2/0,4/0,5/0,6 \text{ und } 0,8$ zusehen. Man kann beobachten, dass für $\Theta = 0,2$ fast alle, während für $\Theta = 0,8$ nur ein einziges Element im ersten Schritt markiert wurden. Man kann bei allen Folgen eine starke Dichte an Elementen in den Ecken, besonders der einspringenden Ecke erkennen.\\
+Mit dem vorgestellten \matlab \:Programm angewendet auf die Anfangstriangulierung $\mathscr{T}_0$, die durch die Mittgabe des Parameters \texttt{red=2} erzeugt wurde(Abbildung \ref{grid}), erhält man eine Gitterfolge. Verwendet man verschieden $\Theta$, so werden verschiedene Elemente markiert und man erhält unterschiedliche Gitterfolgen. In der Tabelle \ref{tabelle} sind Triangulierungsfolgen von $\Theta =0,2/0,4/0,5/0,6 \text{ und } 0,8$ zusehen. \\
+Man kann beobachten, dass für $\Theta = 0,2$ fast alle, während für $\Theta = 0,8$ nur ein einziges Element im ersten Schritt markiert wurden. Man kann bei allen Folgen eine starke Dichte an Elementen in den Ecken, besonders der einspringenden Ecke erkennen. Für eine Abwägung welches Theta am meisten Sinn macht, spielt jedoch vorallem die Rechenzeit und der Fehler der Approximation eine Rolle. In Tabelle \ref{Test} sieht man Daten einer Messreihe. Je größer das Theta desto niedriger ist die Anzahl der Knoten in der letzten Triangulierung. Da in jedem Iterationsschritt ein Gleichungssystem mit \#Knoten vielen Gleichungen gelöst wird liegt das Approximieren auf einem Gitter in $\mathscr{O}(\#Knoten^2)$. Somit sinkt die Zeit zur Berechnung der letzten Approximation mit steigendem Theta. Allerdings steigt die Anzahl der Iterationsschritte, die benötigt werden, um eine Fehlerschwelle zu unterschreiten, mit steigendem Theta.\\
+Beim Vergleich mit einer Approximation auf einem Gitter mit gleichmäßiger Gitterweite, fällt auf das hierfür sehr viel mehr Knoten gebraucht werden um die selbe Fehlerschwelle zu unterschreiten. Die Rechenzeiten sind jedoch vergleichbar, wenn nicht sogar geringer, da nur eine und nicht wie im Fall vom adaptiven Gitteralgorithmus eine ganze Reihe von Approximationen durchgeführt werden muss.\\
+\begin{table}[!htbp]
+	\begin{tabular}{r|c|c|c}
+		$\Theta\setminus\varepsilon_{stop}$& $2\cdot10^{-1}$ & $1\cdot10^{-1}$&$5\cdot10^{-2}$ \\
+		\hline
+		0,2&6,5s, 988Kn, 5 Schritte&30s, 4114Kn, 8 Schritte&2min15s, 16356Kn, 11 Schritte\\	
+		0,4&9,6s 1478Kn, 7 Schritte&25,2s, 3730Kn, 9 Schritten&2min43s, 21394Kn,  13 Schritte\\
+		0,5&7,6s, 1105Kn, 7 Schritte&31,4s, 4269Kn, 10 Schritte&2m8s, 16668Kn, 13 Schritte\\
+		0,6&6,3s, 971Kn, 7 Schritte&28,7s, 3954Kn, 10 Schritte&1min46s, 15359Kn,  13 Schritte\\
+		0,8&11,8s, 968Kn, 13 Schritte&51,6s, 3422Kn, 19 Schritte&3min19s, 12770Kn,  26 Schritte\\
+		\hline
+		Vergleich&6,8s, 3201Kn&29s, 12545Kn&1min48s, 49665Kn\\
+	\end{tabular}
+	\caption{\label{Test}Werte aus Messreihe mit verschiedenen Parametern für $\Theta$ und die Abbruchbedingung $\varepsilon_{stop}$ die den Fehler der letzten Approximation beschränkt. Es wird die Zeit angegeben die das ganze verfahren benötigt hat, sowie die Anzahl der Knotenpunkte (Kn) in der letzten Triangulierung. Als Vergleich ist die Approximation auf einem Gitter mit gleichmäßiger Gitterweite angegeben(redref). Die Zeit entspricht daher der Zeit einer Approximation.}
+\end{table}
 \begin{table}[!htbp]
 	\begin{tabular}{c}
 		\includegraphics[width=15.5cm]{pics/grid02.png} \\
@@ -52,15 +68,4 @@ Mit dem vorgestellten \matlab \:Programm angewendet auf die Anfangstriangulierun
 	\end{tabular}
 	\caption{ \label{tabelle} Gitterfolgen für verschiedene Theta. Von oben nach unten: $\Theta = 0,2/0,4/0,5/0,6/0,8$}
 \end{table}
-\begin{table}[!htbp]
-	\begin{tabular}{r|c|c|c}
-		$\Theta\setminus\varepsilon_{stop}$& $2\cdot10^{-1}$ & $1\cdot10^{-1}$&$5\cdot10^{-2}$ \\
-		\hline
-		0,2&7,3s, 988Kn, 5 Schritte&55,2s, 4114 Kn, 8 Schritte&4min, 16356 Kn, 11 Schritte\\	
-		0,4&11,4s 1478Kn, 7 Schritte&46,7s, 3730 Kn, 9 Schritten&4min20s, 14567 Kn, 12 Schritte\\
-		0,5&9,4s, 1105Kn, 7 Schritte&62,5s, 4269Kn, 10 Schritte&5min40s, 16668Kn, 13 Schritte\\
-		0,6&13,5s, 971Kn, 7 Schritte&71,1s, 3954Kn, 10 Schritte&\\
-		0,8&&&\\
-	\end{tabular}
-	\caption{Werte aus Messreihe mit verschiedenen Parametern für $\Theta$ und die Abbruchbedingung $\varepsilon_{stop}$ die den Fehler der letzten Approximation beschränkt. Es wird die Zeit angegeben die das ganze verfahren benötigt hat, sowie die Anzahl der Knotenpunkte (Kn) in der letzten Triangulierung}
-\end{table}
+
