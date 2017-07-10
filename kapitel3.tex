@@ -1,5 +1,5 @@
 \chapter{Fallbeispiel}
-In diesem Kapitel werden die Erkenntnisse aus den beiden vorangehenden Kapiteln genutzt um das Poisson Problem $\Delta u = 1, u|_{\p \Omega} = 0$ auf einem L-förmigen Gebiet   
+In diesem Kapitel werden die Erkenntnisse aus den beiden vorangehenden Kapiteln genutzt, um das Poisson Problem $\Delta u = 1, u|_{\p \Omega} = 0$ auf einem L-förmigen Gebiet   
 \[
 \Omega = [0,1]^2 \cap \left\{ r(\cos\phi,\sin\phi)| r\in\R,0<\phi<\frac{3 \pi}{2} \right\}
 \] 
@@ -13,7 +13,7 @@ zu approximieren. Es wird also der adaptive Gitteralgorithmus angewendet auf ein
 \end{figure}
 
 \section{Implementation}
-Im Folgenden ist eine Implementation des adaptiven Gitteralgorithmus in \matlab \: zu finden. In Abbildung \ref{main} ist das Hauptprogramm zu sehen. Die Matrix c4n, coordinates for nodes, enthält in der i-ten Zeile die x und y Koordinate des i-ten Knotens im Gitter. Die Matrix n4e, nodes for elements, enthält in der i-ten Zeile die Nummer der Knoten, die zu dem i-ten Element gehören. Dabei ist die Kante vom ersten zum dritten Knoten die längste. Diese Konvention wird für das Rot-Grün-Blau Verfahren benötigt. Db, Dirichlet bondary, gibt in diesem Fall den Rand des Gebiets vor da der Neumann Rand leer ist. In jeder Zeile stehen die Nummern der Knoten die zu einer Kante auf dem Rand gehören. \\
+Im Folgenden ist eine Implementation des adaptiven Gitteralgorithmus in \matlab \: zu finden. In Abbildung \ref{main} ist das Hauptprogramm zu sehen. Die Matrix c4n, coordinates for nodes, enthält in der i-ten Zeile die x und y Koordinate des i-ten Knotens im Gitter. Die Matrix n4e, nodes for elements, enthält in der i-ten Zeile die Nummern der Knoten, die zu dem i-ten Element gehören. Dabei ist die Kante vom ersten zum dritten Knoten die längste. Diese Konvention wird für das Rot-Grün-Blau Verfahren benötigt. Db, Dirichlet bondary, gibt in diesem Fall den Rand des Gebiets vor, da der Neumann Rand leer ist. In jeder Zeile stehen die Nummern der Knoten, die zu einer Kante auf dem Rand gehören. \\
 Das Unterprogramm $\texttt{comp\_estimators}$, zu sehen in Abbildung \ref{indi}, berechnet die Verfeinerungsindikatoren
 \[
 \eta^2_T(u_k) = h^2_T\|f\|^2_{L^2(T)} + \sum_{S\subset\p T} h_S\|\llbracket \nabla u_k \cdot n_S\rrbracket\|^2_{L^2(S)} 
@@ -24,7 +24,7 @@ Als Menge der zu verfeinernden Elemente wird vereinfachend
 M_k = \{T\in\mathscr{T}_k | \eta_T(u_k)\geq \Theta \max_{T'\in \mathscr{T}_k} \eta_{T'}(u_k)\}
 \]
 benutzt. $M_k$ ist damit in jedem Fall nichtleer, außer $u_k$ ist bereits die exakte Lösung. \\
-Das Unterprogramm $\texttt{sides}$, in Abbildung \ref{indi} unten, liefert eine Datenstruktur für $\mathscr{S}_k$ die in $\texttt{comp\_estimators}$ verwendet wird. In n4s, nodes for sides, befindet sich in der i-ten Zeile die Knoten der i-ten Seite. Diese Nummerierung der Seiten wird benutzt um in s4e, sides for elements, jedem Dreieck seine Seiten zuzuordnen, und in e4s, elements for sides, jeder Seite die zwei anliegenden Elemente oder wenn die Seite auf dem Rand liegt das eine anliegende Element zu zuweisen.
+Das Unterprogramm $\texttt{sides}$, in Abbildung \ref{indi} unten, liefert eine Datenstruktur für $\mathscr{S}_k$ die in $\texttt{comp\_estimators}$ verwendet wird. In n4s, nodes for sides, befindet sich in der i-ten Zeile die Knoten der i-ten Seite. Diese Nummerierung der Seiten wird benutzt, um in s4e, sides for elements, jedem Dreieck seine Seiten zuzuordnen und in e4s, elements for sides, jeder Seite die zwei anliegenden Elemente, oder wenn die Seite auf dem Rand liegt, das eine anliegende Element zu zuweisen.
 
 \begin{figure}[!htbp]
 	\lstinputlisting{codes/p1_adaptive.m}
@@ -41,9 +41,9 @@ Das Unterprogramm $\texttt{sides}$, in Abbildung \ref{indi} unten, liefert eine 
 \end{figure}
 \newpage \newpage \newpage  
 \section{Vergleich von Gitterfolgen}
-Mit dem vorgestellten \matlab \:Programm angewendet auf die Anfangstriangulierung $\mathscr{T}_0$, die durch die Mittgabe des Parameters \texttt{red=2} erzeugt wurde(Abbildung \ref{grid}), erhält man eine Gitterfolge. Verwendet man verschieden $\Theta$, so werden verschiedene Elemente markiert und man erhält unterschiedliche Gitterfolgen. In der Tabelle \ref{tabelle} sind Triangulierungsfolgen von $\Theta =0,2/0,4/0,5/0,6 \text{ und } 0,8$ zusehen. \\
-Man kann beobachten, dass für $\Theta = 0,2$ fast alle, während für $\Theta = 0,8$ nur ein einziges Element im ersten Schritt markiert wurden. Man kann bei allen Folgen eine starke Dichte an Elementen in den Ecken, besonders der einspringenden Ecke erkennen. Für eine Abwägung welches Theta am meisten Sinn macht, spielt jedoch vorallem die Rechenzeit und der Fehler der Approximation eine Rolle. In Tabelle \ref{Test} sieht man Daten einer Messreihe. Je größer das Theta desto niedriger ist die Anzahl der Knoten in der letzten Triangulierung. Da in jedem Iterationsschritt ein Gleichungssystem mit \#Knoten vielen Gleichungen gelöst wird liegt das Approximieren auf einem Gitter in $\mathscr{O}(\#Knoten^2)$. Somit sinkt die Zeit zur Berechnung der letzten Approximation mit steigendem Theta. Allerdings steigt die Anzahl der Iterationsschritte, die benötigt werden, um eine Fehlerschwelle zu unterschreiten, mit steigendem Theta.\\
-Beim Vergleich mit einer Approximation auf einem Gitter mit gleichmäßiger Gitterweite, fällt auf das hierfür sehr viel mehr Knoten gebraucht werden um die selbe Fehlerschwelle zu unterschreiten. Die Rechenzeiten sind jedoch vergleichbar, wenn nicht sogar geringer, da nur eine und nicht wie im Fall vom adaptiven Gitteralgorithmus eine ganze Reihe von Approximationen durchgeführt werden muss.\\
+Mit dem vorgestellten \matlab \:Programm angewendet auf die Anfangstriangulierung $\mathscr{T}_0$, die durch die Mittgabe des Parameters \texttt{red=2} erzeugt wurde(Abbildung \ref{grid}), erhält man eine Gitterfolge. Verwendet man verschieden Werte für $\Theta$, so werden verschiedene Elemente markiert und man erhält unterschiedliche Gitterfolgen. In der Tabelle \ref{tabelle} sind die Triangulierungsfolgen für $\Theta =0,2/0,4/0,5/0,6 \text{ und } 0,8$ zusehen. \\
+Man kann beobachten, dass für $\Theta = 0,2$ fast alle, während für $\Theta = 0,8$ nur ein einziges Element im ersten Schritt markiert wurden. Man kann bei allen Folgen eine starke Dichte an Elementen in den Ecken besonders der einspringenden Ecke erkennen. Für eine Abwägung welcher Wert für Theta am effizientesten ist, spielt jedoch vorallem die Rechenzeit und der Fehler der Approximation eine Rolle. In Tabelle \ref{Test} sieht man Daten einer Messreihe. Je größer das Theta desto niedriger ist die Anzahl der Knoten in der letzten Triangulierung. Da in jedem Iterationsschritt ein Gleichungssystem mit \#Knoten vielen Gleichungen gelöst wird, liegt das Approximieren auf einem Gitter in $\mathcal{O}(\#Knoten^2)$. Somit sinkt die Zeit zur Berechnung der letzten Approximation mit steigendem Theta. Allerdings steigt die Anzahl der Iterationsschritte, die benötigt werden, um eine Fehlerschwelle zu unterschreiten, mit steigendem Theta.\\
+Beim Vergleich mit einer Approximation auf einem Gitter mit gleichmäßiger Gitterweite fällt auf, dass hierfür sehr viel mehr Knoten gebraucht werden, um die selbe Fehlerschwelle zu unterschreiten. Die Rechenzeiten sind jedoch vergleichbar, wenn nicht sogar geringer, da nur eine und nicht wie im Fall vom adaptiven Gitteralgorithmus eine ganze Reihe von Approximationen durchgeführt werden muss.\\
 \begin{table}[!htbp]
 	\begin{tabular}{r|c|c|c}
 		$\Theta\setminus\varepsilon_{stop}$& $2\cdot10^{-1}$ & $1\cdot10^{-1}$&$5\cdot10^{-2}$ \\
@@ -68,4 +68,9 @@ Beim Vergleich mit einer Approximation auf einem Gitter mit gleichmäßiger Gitt
 	\end{tabular}
 	\caption{ \label{tabelle} Gitterfolgen für verschiedene Theta. Von oben nach unten: $\Theta = 0,2/0,4/0,5/0,6/0,8$}
 \end{table}
-
+\begin{figure}[!htbp]
+	\begin{center}
+		\includegraphics[width=17cm]{pics/approx.PNG}
+	\end{center}
+	\caption{\label{app} Approximation auf einem adaptiven Gitter mit $\Theta = 0,2$ (links) und auf einer Triangulierung mit gleichmäßiger Gitterweite (rechts) mit vergleichbarem Approximationsfehler}
+\end{figure}
