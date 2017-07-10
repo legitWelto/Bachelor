@@ -1,13 +1,14 @@
-function p1_adaptive(red,theta,eps_stop) % Nb = []; d = 2;
+function p2_adaptiveworking(red,theta,eps_stop) % Nb = []; d = 2;
 error_bound = 1;
-c4n = [-1,-1;0,-1;-1,0;0,0;1,0;-1,1;0,1;1,1];
-n4e = [1,2,4;4,3,1;3,4,7;7,6,3;4,5,8;8,7,4];
-Db = [1,2;2,4;4,5;5,8;8,7;7,6;6,3;3,1];
-
+c4n = [-0.5,-1;0,-1;0.5,-1;-1,-0.5;-0.5,-0.5;0,-0.5;0.5,-0.5;1,-0.5;-1,0;-0.5,0;0,0;0.5,0;1,0;-1,0.5;-0.5,0.5;0,0.5;0.5,0.5;1,0.5;-0.5,1;0,1;0.5,1];
+n4e = [1,2,6;2,3,7;6,5,1;7,6,2;4,5,10;5,6,11;6,7,12;7,8,13;10,9,4;11,10,5;12,11,6;13,12,7;9,10,15;10,11,16;11,12,17;12,13,18;15,14,9;16,15,10;17,16,11;18,17,12;15,16,20;16,17,21;20,19,15;21,20,16];
+Db = [1,2;2,3;3,7;7,8;8,13;13,18;18,17;17,21;21,20;20,19;19,15;15,14;14,9;9,4;4,5;5,1];
+n = 1;
 for j = 1:red
   marked = ones(size(n4e,1),1);
   [c4n,n4e,Db] = rgb_refine(c4n,n4e,Db,marked);
 end
+tic
 while error_bound > eps_stop
   %%% solve
   fNodes = setdiff(1:size(c4n,1),unique(Db));
@@ -15,7 +16,9 @@ while error_bound > eps_stop
   [s,m] = fe_matrices(c4n,n4e);
   b = m*f(c4n);
   u(fNodes) = s(fNodes,fNodes)\b(fNodes);
-  show_p1(c4n,n4e,Db,[],u,0); view(30,20);pause(0.5)
+  show_p1(c4n,n4e,Db,[],u,n); waitforbuttonpress;
+  %show_p1(c4n,n4e,Db,[],u,n); pause(.05);
+  n = n+1;
   %%% estimate
   eta = comp_estimators(c4n,n4e,Db,u);
   error_bound = sqrt(sum(eta.^2))
@@ -25,25 +28,12 @@ while error_bound > eps_stop
   if error_bound > eps_stop
     [c4n,n4e,Db] = rgb_refine(c4n,n4e,Db,marked);
   end
+  error_bound=0
 end
-error_bound = 1;
-c4n = [-1,-1;0,-1;-1,0;0,0;1,0;-1,1;0,1;1,1];
-n4e = [1,2,4;4,3,1;3,4,7;7,6,3;4,5,8;8,7,4];
-Db = [1,2;2,4;4,5;5,8;8,7;7,6;6,3;3,1];
+toc
+size(c4n,1)
+n-1
 
-for j = 1:6
-  marked = ones(size(n4e,1),1);
-  [c4n,n4e,Db] = rgb_refine(c4n,n4e,Db,marked);
-end
-fNodes = setdiff(1:size(c4n,1),unique(Db));
-u = zeros(size(c4n,1),1);
-[s,m] = fe_matrices(c4n,n4e);
-b = m*f(c4n);
-u(fNodes) = s(fNodes,fNodes)\b(fNodes);
-subplot(1,2,2)
-trisurf(n4e,c4n(:,1),c4n(:,2),u);view(30,20);
-eta = comp_estimators(c4n,n4e,Db,u);
-error_bound = sqrt(sum(eta.^2))
 endfunction
 function eta = comp_estimators(c4n,n4e,Db,u)
   [s4e,~,n4s,s4Db] = sides(n4e,Db,[]);
@@ -171,16 +161,18 @@ function show_p1(c4n,n4e,Db,Nb,u,n)
 d = size(c4n,2);
 if d == 1
   plot(c4n(n4e),u(n4e));
-elseif d == 2  
-  subplot(1,2,1)
+elseif d == 2
+  %subplot(1,2,1.5 +0.5*(-1)^n);  
+  %trisurf(n4e,c4n(:,1),c4n(:,2),u);
+  %view(45,45);
+  subplot(1,2,2);
   trisurf(n4e,c4n(:,1),c4n(:,2),u);
-  #subplot(2,6,2*n);
-  #trisurf(n4e,c4n(:,1),c4n(:,2),u);
-  #view(0,90);
-  #subplot(1,2,1.5 +0.5*(-1)^n);
-  #colormap(white);
-  #trisurf(n4e,c4n(:,1),c4n(:,2),zeros(size(c4n,1),1));
-  #view(0,90);
+  view(45,30);
+  subplot(1,2,1);
+  
+  trisurf(n4e,c4n(:,1),c4n(:,2),zeros(size(c4n,1),1));
+  colormap(white);  
+  view(0,90);
 elseif d == 3
   trisurf([Db;Nb],c4n(:,1),c4n(:,2),c4n(:,3),u);
 end
