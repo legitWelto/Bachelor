@@ -1,5 +1,5 @@
 \chapter{Fehlerkontrolle}
-Ziel des Kapitels ist es, einen berechenbaren, verlässlichen und effizienten Fehlerindikator zu finden. Die Erfahrung zeigt, dass die Größe des Winkels zwischen den zwei affinen Hyperflächen, welche von der Approximation auf den Triangulationselementen angenommen werden, ein guter Fehlerindikator sein könnte. Auf dieser Vermutung beruht die Definition des a posteriori (lat. erfahrungsbasiert; im Gegensatz zu a priori) Fehlerschätzers. 
+Ziel des Kapitels ist es, einen berechenbaren, verlässlichen und effizienten Fehlerindikator zu finden. Die Erfahrung zeigt, dass die Größe des Winkels zwischen den zwei affinen Hyperflächen, welche von der Approximation auf den Elementen der Triangulation angenommen werden, ein guter Fehlerindikator sein könnte. Auf dieser Vermutung beruht die Definition des a posteriori (lat. erfahrungsbasiert; im Gegensatz zu a priori) Fehlerschätzers. 
 
 \section{A Posteriori Fehlerschätzer}
 Für die Definition des a posteriori  Fehlerschätzers wird eine Größe für die \verb|"|Schärfe\verb|"| der Kante benötigt. Dies liefert uns der Sprung. Je größer dieser, desto \verb|"|schärfer\verb|"| die Kante (Abbildung \ref{sprung}). 
@@ -15,11 +15,11 @@ Für die Definition des a posteriori  Fehlerschätzers wird eine Größe für di
 	\begin{center}
 		\includegraphics[width=12cm]{pics/Sprung.png}
 	\end{center}
-	\caption{\label{sprung}Zwei benachbarte Elemente mit darüberliegender Approximation (links) Schnitt entlang der Normalen mit großen (durchgezogene Linie) und kleinem (gestrichelte Linie) Sprung (rechts)}
+	\caption{\label{sprung}Zwei benachbarte Elemente mit darüberliegender Approximation (links). Schnitt entlang der Normalen mit großem (durchgezogene Linie) und kleinem (gestrichelte Linie) Sprung (rechts).}
 \end{figure}
 
 \begin{definition}[Verfeinerungsindikator]
-	Für $u_h \in \mathscr{S}^1(\mathscr{T}_h) \text{ und } T \in \mathscr{T}_h$, definiere Verfeinerungsindikator $\eta_T(u_h)$ durch
+	Für $u_h \in \mathscr{S}^1(\mathscr{T}_h) \text{ und } T \in \mathscr{T}_h$, definiere den Verfeinerungsindikator $\eta_T(u_h)$ durch
 	\[
 	\eta^2_T(u_h) = h^2_T\|f\|^2_{L^2(T)} + \sum_{S\in\mathscr{S}_h,S\subset\p T} h_S\|\llbracket \nabla u_h \cdot n_S\rrbracket\|^2_{L^2(S)} \]
 \end{definition}
@@ -29,35 +29,35 @@ Für die Definition des a posteriori  Fehlerschätzers wird eine Größe für di
 	\eta_\mathscr{R}^2(u_h)=\sum_{T\in\mathscr{T}_h} \eta^2_T(u_h)
 	\]
 \end{definition}
-Für $u$ Lösungen des Poisson-Problems $-\Delta u = f$ soll nun gezeigt werden, das gilt \\
+Für $u$ Lösung des Poisson-Problems $-\Delta u = f$ soll nun gezeigt werden, dass gilt \\
 \begin{center}
 	\begin{tabular}{r c l l}
 		$\|\nabla(u-u_h)\|$ & $\leq$ & $c_1 \eta_\mathscr{R}(u_h)$ &\textbf{Verlässlichkeit} \\
-		$c_2 \eta_\mathscr{R}(u_h)$ &$\leq$& $\|\nabla(u-u_h)\|$ &\textbf{Effiziens} \\
+		$c_2 \eta_\mathscr{R}(u_h)$ &$\leq$& $\|\nabla(u-u_h)\|$ &\textbf{Effizienz} \\
 	\end{tabular}
 \end{center}
-Der Fehlerindikator muss beide dieser Ungleichungen erfüllen. Der triviale Indikator$\eta(u_h)=1$ ist verlässlich aber nicht effizient, während $\eta(u_h)=0$ effizient aber nicht verlässlich ist. Beide sind für die Fehlerkontrolle und als Verfeinerungsindikator ungeeignet.
+Der Fehlerindikator muss beide dieser Ungleichungen erfüllen. Der triviale Indikator $\eta(u_h)=1$ ist verlässlich aber nicht effizient, während $\eta(u_h)=0$ effizient aber nicht verlässlich ist. Beide sind für die Fehlerkontrolle und als Verfeinerungsindikator ungeeignet.
 \section{Lokale Ungleichungen}
-Um die Verlässlichkeit zu zeigen, wird ein Resultat über den Clément-Quasi-Interpolanten benötigt. Für dieses Resultat werden zunächst die lokale Poincaré- und lokale Spur-Ungleichung vorgestellt.
+Um die Verlässlichkeit zu zeigen, wird ein Resultat über den Clément-Quasi-Interpolanten benötigt. Für dieses Resultat werden zunächst die lokale Poincaré- und die lokale Spur-Ungleichung vorgestellt.
 \begin{definition}
 	Sei $z \in \mathscr{N}_h$ Knoten. Definiere $\omega_z \subset \Omega$ als
 	\[
 	\omega_z = supp(\varphi_z)
 	\]
-	Und $h_z = diam(\omega_z)$ Durchmesser von $\omega_z$
+	und $h_z = diam(\omega_z)$ Durchmesser von $\omega_z$
 \end{definition}
 \begin{bemerkung}
-	Es gibt $c_{loc} > 0$ so, dass für alle $T \in\mathscr{T}_h, z\in\mathscr{N}_h\cap T$ gilt
+	Es gibt $c_{loc} > 0$, sodass für alle $T \in\mathscr{T}_h, z\in\mathscr{N}_h\cap T$ gilt
 	\[
 	h_z\leq c_{loc}h_T
 	\]
 \end{bemerkung}
 
-\begin{lemma}[Lokale Poincaré Ungleichung]
-	Sei $v \in H^1_D(\Omega)$ un $z\in \mathscr{N}_h.$ Sei $v_z= 0$ für $z\in \Gamma_D$ und 
+\begin{lemma}[Lokale Poincaré-Ungleichung]\label{lemma}
+	Sei $v \in H^1_D(\Omega)$ und $z\in \mathscr{N}_h.$ Sei $v_z= 0$ für $z\in \Gamma_D$ und sonst
 	\[ v_z = |\omega_z|^{-1} \int_{\omega_z} v \quad dx
 	\]
-	sonst. Dann gibt es für alle $h > 0$ und $z \in \mathscr{N}_h$ eine Konstante $c_{p,z}>0$, sodass:
+	Dann gibt es für alle $h > 0$ und $z \in \mathscr{N}_h$ eine Konstante $c_{p,z}>0$, sodass
 	\[
 	\|v-v_z\|_{L^2(\omega_z)}\leq c_{p,z}h_z\|\nabla v\|_{L^2(\omega_z)}.
 	\]
@@ -78,14 +78,14 @@ Um die Verlässlichkeit zu zeigen, wird ein Resultat über den Clément-Quasi-In
 		\caption{Diffeomorphismus $\phi_z$ von $\widehat{\omega}_z$ nach $\omega_z$}
 	\end{figure}
 
-	\item[ii)] mit der Standard Poincaré Ungleichung folgt für alle $\widehat{u}\in H^1(\widehat{\omega}_z)$
+	\item[ii)] Mit der Standard Poincaré Ungleichung folgt für alle $\widehat{u}\in H^1(\widehat{\omega}_z)$
 	\[
 	\|\widehat{u}\|_{L^2(\widehat{\omega}_z)} \leq c_{p,z}\|\nabla \widehat{u}\|_{L^2(\widehat{\omega}_z)}
 	\]
-	wenn \[ \int_{\widehat{\omega}_z}\widehat{u}d\hat{x}=0 \text{ oder }\widehat{u}|_{\hat{\gamma}_z}
+	wenn \[ \int_{\widehat{\omega}_z}\widehat{u}\:d\hat{x}=0 \text{ oder }\widehat{u}|_{\hat{\gamma}_z}
 	\]
-	für geschlossene Teilmenge ${\hat{\gamma}_z} \subset \p \widehat{\omega}_z$ mit positivem Flächenmaß
-	\item[iii)] Sei $v_z$ wie im Lemma definiert und $u= v-v_z\in H^1(\omega_z)$, dann erfüllt $\widehat{u} = u \circ \phi_z$ die Bedingungen für die Standard Poincaré Ungleichung auf $\widehat{\omega}_z$
+	für geschlossene Teilmenge ${\hat{\gamma}_z} \subset \p \widehat{\omega}_z$ mit positivem Flächenmaß.
+	\item[iii)] Sei $v_z$ wie in Lemma \ref{lemma} definiert und $u= v-v_z\in H^1(\omega_z)$, dann erfüllt $\widehat{u} = u \circ \phi_z$ die Bedingungen für die Standard Poincaré-Ungleichung auf $\widehat{\omega}_z$.
 	\item[iv)] Mit der Transformationsformel folgt:
 	\begin{eqnarray*}
 		\int_{\omega_z} u^2dx&=& \int_{\widehat{\omega}_z} \widehat{u}^2 | detD\phi_z|d\hat{x} \\
@@ -97,15 +97,15 @@ Um die Verlässlichkeit zu zeigen, wird ein Resultat über den Clément-Quasi-In
 \end{itemize}
 $\hfill \Box$
 
-\begin{lemma}[Lokale Spur Ungleichung]
-	Sei $S \in  \mathcal{S}_h$ und $T_S \in \mathscr{T}_h$ so, dass $S \subset \p T_s$. Dann
+\begin{lemma}[Lokale Spur-Ungleichung]
+	Sei $S \in  \mathcal{S}_h$ und $T_S \in \mathscr{T}_h$, sodass $S \subset \p T_s$. Dann
 	gibt es die Konstante $c_{Tr} > 0$, sodass für alle $v\in H^1(\Omega)$ gilt:
 	\[
 	\|v\|^2_{L^2(S)} \leq c^2_{Tr}(h_S^{-1}\|v\|^2_{L^2(T_S)}+h_S\|\nabla v\|^2_{L^2(T_S)}).
 	\]
 \end{lemma}
 \textbf{Beweis:}
-Sei $\hat{S}$ die S entsprechende Seite auf dem Referenzelement $\hat{T}$. Auf dem Referenzdreieck gilt die Spurungleichung
+Sei $\hat{S}$ die S entsprechende Seite auf dem Referenzelement $\hat{T}$. Auf dem Referenzdreieck gilt die Spur-Ungleichung
 \[
 \|\hat{v}\|^2_{L^2(\hat{S})} \leq c\|\hat{v}\|_{L^2(\hat{T})}\|\hat{v}\|_{H^1(\hat{T})}
 \]
@@ -118,8 +118,8 @@ Daraus folgt
 \|v\|^2_{L^2(S)} \leq c^2(h_S^{-1}\|v\|^2_{L^2(T)}+h_S\|v\|^2_{H^1(T)})
 \]
 $\hfill \Box$
-\section{Clément Quasi Interpolant}
-Im Gegensatz zum nodalen Interpolanten wird der Clément Quasi Interpolant über Mittelwerte definiert. Dies führt dazu, dass an Knoten nicht der exakte Wert angenommen wird. Dafür können auch nicht stetige Funktionen interpoliert werden.
+\section{Clément-Quasi-Interpolant}
+Im Gegensatz zum nodalen Interpolanten wird der Clément-Quasi-Interpolant über Mittelwerte definiert. Dies führt dazu, dass an Knoten nicht der exakte Wert angenommen wird. Dafür können auch nicht stetige Funktionen interpoliert werden.
 \begin{definition}
     Sei $v \in L^1(\Omega) , z \in \mathscr{N}_h$
 	\[
@@ -129,21 +129,21 @@ Im Gegensatz zum nodalen Interpolanten wird der Clément Quasi Interpolant über
 		0 &  \text{f\"ur } z \in \mathscr{N}_h \cap \Gamma_D
 	\end{array}\right.
 	\]
-	Definiere den Clément Quasi Interpolant$\mathscr{J}_hv \in \mathscr{S}_D^1(\mathscr{T}_h)$ von v als
+	Definiere den Clément-Quasi-Interpolant $\mathscr{J}_hv \in \mathscr{S}_D^1(\mathscr{T}_h)$ von v als
 	\begin{displaymath}
 		\mathscr{J}_hv = \sum_{z\in \mathscr{N}_h} v_z \varphi_z
 	\end{displaymath}
 \end{definition}
-\begin{theorem}(Quasi Interpolant Abschätzung)
-	Es existiert $c_\mathscr{J} > 0$, so dass f\"ur alle $v\in H^1_D(\Omega)$ gilt:
+\begin{theorem}(Quasi-Interpolant-Abschätzung)
+	Es existiert $c_\mathscr{J} > 0$, sodass f\"ur alle $v\in H^1_D(\Omega)$ gilt:
 	\[
 	\|\nabla\mathscr{J}_hv\| +\|h^{-1}_\mathscr{T}(v-\mathscr{J}_hv)\| +\|h^{-\frac{1}{2}}_\mathscr{S}(v-\mathscr{J}_hv)\|_{L^2(\cup\mathscr{S}_h)} \leq c_\mathscr{J}\|\nabla v\|
 	\]
-	mit $h_\mathscr{T}: \Omega \rightarrow  \R \text{ und } h_\mathscr{S}: \cup \mathscr{S}_h \rightarrow  \R$, definiert durch $h_\mathscr{T}|_T = h_T \text{ und }  h_\mathscr{S}|_S = h_S$ \\ f\"ur alle $T\in\mathscr{T}_h, S\in\mathscr{S}_h$ 
+	mit $h_\mathscr{T}: \Omega \rightarrow  \R \text{ und } h_\mathscr{S}: \cup \mathscr{S}_h \rightarrow  \R$, definiert durch $h_\mathscr{T}|_T = h_T \text{ und }  h_\mathscr{S}|_S = h_S$ \\ f\"ur alle $T\in\mathscr{T}_h, S\in\mathscr{S}_h$.
 \end{theorem}
 \textbf{Beweis:}
 \begin{itemize}
-	\item[i)] Da $\sum_{\varphi\in\mathscr{N}_h}\varphi_z = 1$ in $\Omega$ ist $\sum_{z\in\mathscr{N}_h}\nabla \varphi_z=0$
+	\item[i)] Da für alle $x \in\Omega$ gilt $\sum_{\varphi\in\mathscr{N}_h}\varphi_z = 1$  ist $\sum_{z\in\mathscr{N}_h}\nabla \varphi_z=0$. Somit folgt mit Nulladdition
 	\[
 	\nabla \mathscr{J}_hv = \nabla \sum_{z\in \mathscr{N}_h}v_z\varphi_z = \sum_{z\in \mathscr{N}_h}(v_z-v) \nabla\varphi_z
 	\]
@@ -156,31 +156,31 @@ Die Inversenabschätzung liefert für alle z
 \[
 \|\nabla\varphi_z\|_{L^\infty(\omega_z)}\leq c_{inv}h^{-1}_z\|\varphi_z\|_{L^\infty(\omega_z)} =c_{inv}h^{-1}_z.
 \]
-Mit Hölder-,Cauchy-Schwarz- und der lokalen Poincaréungleichung folgt
+Mit Hölder-, Cauchy-Schwarz- und der lokalen Poincaré-Ungleichung folgt
 \begin{eqnarray*}
 	\|\nabla\mathscr{J}_hv\|^2 &\leq&\sum_{z\in \mathscr{N}_h}\|v_z-v\|_{L^2(\omega_z)} \|\nabla\varphi_z\|_{L^\infty(\omega_z)}\|\nabla \mathscr{J}_hv\|_{L^2(\omega_z)}\\
 	&\leq&c_{inv}c_p\sum_{z\in \mathscr{N}_h}\|\nabla v\|_{L^2(\omega_z)} \|\nabla \mathscr{J}_hv\|_{L^2(\omega_z)} \\
-	&\leq&c_{inv}c_p(\sum_{z\in \mathscr{N}_h}\|\nabla v\|_{L^2(\omega_z)}^2)^{1/2} (\sum_{z\in \mathscr{N}_h} \|\nabla \mathscr{J}_hv\|_{L^2(\omega_z)}^2)^{1/2} \\
+	&\leq&c_{inv}c_p\left(\sum_{z\in \mathscr{N}_h}\|\nabla v\|_{L^2(\omega_z)}^2\right)^{1/2} \left(\sum_{z\in \mathscr{N}_h} \|\nabla \mathscr{J}_hv\|_{L^2(\omega_z)}^2\right)^{1/2} \\
 	&\leq&c_{inv}c_p(d+1)\|\nabla v\| \|\nabla \mathscr{J}_hv\|
 \end{eqnarray*} 
 In der letzten Abschätzung folgt aus endlicher Überlappung der $\omega_z$
 \[
 \sum_{z\in \mathscr{N}_h}\|\nabla v\|_{L^2(\omega_z)}^2 \leq (d+1)\sum_{T\in\mathscr{T}_h} \|\nabla v\|^2_{L^2(T)} = (d+1)\|\nabla v\|^2
 \]
-Teilen durch $\|\nabla\mathscr{J}_hv\|$ liefert die erste Abschätzung
+Teilen durch $\|\nabla\mathscr{J}_hv\|$ liefert die erste Abschätzung.
 \item[ii)] Für beliebiges $\psi \in L^2(\Omega)$ gilt
 \begin{eqnarray*}
-	\int_{\Omega}\psi(v-\mathscr{J}_hv)dx &=& \int_{\Omega}\psi(v-\sum_{z\in \mathscr{N}_h}v_z\varphi_z)dx \\
-	 &=& \int_{\Omega}\psi(\sum_{z\in \mathscr{N}_h}v\varphi_z-\sum_{z\in \mathscr{N}_h}v_z\varphi_z)dx\\
+	\int_{\Omega}\psi(v-\mathscr{J}_hv)dx &=& \int_{\Omega}\psi\left(v-\sum_{z\in \mathscr{N}_h}v_z\varphi_z\right)dx \\
+	 &=& \int_{\Omega}\psi\left(\sum_{z\in \mathscr{N}_h}v\varphi_z-\sum_{z\in \mathscr{N}_h}v_z\varphi_z\right)dx\\
 	 &=&\sum_{z\in \mathscr{N}_h}\int_{\omega_z} \psi (v-v_z)\varphi_zdx \\
 	 &\leq&\sum_{z\in \mathscr{N}_h}\int_{\omega_z} |\psi| |v-v_z|dx \\
 	 &\leq&c_p \sum_{z\in \mathscr{N}_h}\|\psi\|_{L^2(\omega_z)}h_z\|\nabla v\|_{L^2(\omega_z)}\\
 	 &\leq&c_pc_{loc}\sum_{z\in \mathscr{N}_h}\|h_{\mathscr{T}}\psi\|_{L^2(\omega_z)}\|\nabla v\|_{L^2(\omega_z)}\\
 	  &\leq&c_pc_{loc}(d+1)\|h_{\mathscr{T}}\psi\|\|\nabla v\|
 \end{eqnarray*}
-Durch geschicktes Wählen von $\psi = h_{\mathscr{T}}^{-2}(v-\mathscr{J}_hv)$ folgt die zweite Abschätzung
+Durch geschicktes Wählen von $\psi = h_{\mathscr{T}}^{-2}(v-\mathscr{J}_hv)$ folgt die zweite Abschätzung.
 \item[iii)]
-Für $S\in\mathscr{S}_h$ und $T_S\in\mathscr{T}_h$ so, dass $S\subset\p T_S$. Mit der lokalen Spurungleichung folgt
+Für alle $S\in\mathscr{S}_h$ definiere $T_S\in\mathscr{T}_h$, sodass $S\subset\p T_S$. Mit der lokalen Spur-Ungleichung, den Beweisschritten i) und ii) und da die Elemente sich maximal d+1 mal überlappen folgt
 \begin{eqnarray*}
 	\|h_{\mathscr{S}}^{1/2}(v-\mathscr{J}_hv)\|^2_{L^2(\cup \mathscr{S}_h)} &=& \sum_{S\in\mathscr{S}_h} h_S^{-1}\|v-\mathscr{J}_hv\|^2_{L^2(S)}\\
 	 &=&c^2_{Tr} \sum_{S\in\mathscr{S}_h} (h_S^{-2}\|v-\mathscr{J}_hv\|^2_{L^2(T_S)} +
@@ -189,18 +189,18 @@ Für $S\in\mathscr{S}_h$ und $T_S\in\mathscr{T}_h$ so, dass $S\subset\p T_S$. Mi
 	 &=&dc^2_{Tr} (c_{loc}^2\|h_{\mathscr{T}}^{-2}(v-\mathscr{J}_hv)\|^2+ \|\nabla (v-\mathscr{J}_hv)\|^2)\\
 	 &\leq&dc^2_{Tr}(c_{loc}^2c_1^2+c_2^2)\|\nabla v\|^2.
 \end{eqnarray*}
-liefert die dritte Abschätzung.
+Dies beweist die dritte Abschätzung.
 $\hfill \Box$
 \end{itemize}
 \section{Verlässlichkeitsabschätzung}
-Mit Hilfe des Quasi Interpolanten lässt sich nun die erste Abschätzung zeigen, die für die Fehlerkontrolle notwendig ist.
+Mit Hilfe des Quasi-Interpolanten lässt sich nun die erste Abschätzung zeigen, die für die Fehlerkontrolle notwendig ist.
 \begin{theorem}[Verlässlichkeitsabschätzung]
-	Sei $u\in H^1_0(\Omega)$ schwache Lösung des Poisson-Problems \[-\Delta u = f ,\quad \Gamma_D = \p \Omega \text{ und } u|_{\p \Omega} = 0, \] und $u_h \in \mathscr{S}^1_0(\mathscr{T}_h)$ Galerkin-Approximation von u. Dann gibt es $c_R > 0$ , sodass:
+	Sei $u\in H^1_0(\Omega)$ die schwache Lösung des Poisson-Problems \[-\Delta u = f ,\quad \Gamma_D = \p \Omega \text{ und } u|_{\p \Omega} = 0, \] und $u_h \in \mathscr{S}^1_0(\mathscr{T}_h)$ Galerkin-Approximation von u. Dann gibt es $c_R > 0$ , sodass
 	\[\|\nabla(u-u_h)\|\leq c_R\eta_\mathscr{R}(u_h)
 	\]
 \end{theorem}
 \textbf{Beweis:}
-Sei $e = u-u_h$ der Approximationsfehler. Dann folgt aus der Galerkinorthogonalität und da u schwache Lösung des Possoinproblems ist
+Sei $e = u-u_h$ der Approximationsfehler. Dann folgt aus der Galerkin-Orthogonalität und da u die schwache Lösung des Possoin-Problems ist
 \begin{eqnarray*}
 	\|\nabla e\|^2 &=& \int_{\Omega}\nabla e \cdot \nabla (e-\mathscr{J}_he)dx \\
 	&=&\int_{\Omega} \nabla u \cdot \nabla (e-\mathscr{J}_he)dx -\int_{\Omega} \nabla u_h \cdot \nabla (e-\mathscr{J}_he)dx \\
@@ -212,12 +212,12 @@ Da $\cup T = \Omega$,  $u|_T$ affin und somit $\Delta u|_T=0$ für alle $T\in\ma
 	&=& \sum_{T\in\mathscr{T}_h} \left(\int_{T} (-\Delta u_h) (e-\mathscr{J}_he) dx +\int_{\p T} (\nabla u_h \cdot n_T) (e-\mathscr{J}_he) ds\right) \\
 	&=&\sum_{T\in\mathscr{T}_h} \int_{\p T} (\nabla u_h \cdot n_T) (e-\mathscr{J}_he) ds
 \end{eqnarray*}
-In der Summe wird über jede innere Seite zwei mal integriert mit $u_h$ bezüglich der anliegenden Elemente und inversen Normalen. $(e-\mathscr{J}_he)$ ist bezüglich beider Elemente auf der Seite gleich. Da $(e-\mathscr{J}_he)|_{\p \Omega}=0$ und aus der Definition vom Sprung, folgt
+In der Summe wird über jede innere Seite zweimal integriert mit $u_h$ bezüglich der anliegenden Elemente und mit inversen Normalen. $(e-\mathscr{J}_he)$ ist bezüglich beider Elemente auf der Seite gleich. Da $(e-\mathscr{J}_he)|_{\p \Omega}=0$ und aus der Definition vom Sprung, folgt
 \[
 \sum_{T\in\mathscr{T}_h} \int_{\p T} (\nabla u_h \cdot n_T) (e-\mathscr{J}_he) ds =
 \sum_{S\in\mathscr{S}_h} \int_{S} \llbracket \nabla u_h \cdot n_S\rrbracket (e-\mathscr{J}_he) ds
 \]
-Mit Hölder- und Schwarz Ungleichungen folgt
+Mit Hölder- und Schwarz-Ungleichungen folgt
 \begin{eqnarray*}
 	\|\nabla e\|^2 &=&  \sum_{T\in\mathscr{T}_h} \int_{T} f (e-\mathscr{J}_he)dx - \sum_{S\in\mathscr{S}_h} \int_{S} \llbracket \nabla u_h \cdot n_S\rrbracket (e-\mathscr{J}_he) ds \\
 	&\leq&  \sum_{T\in\mathscr{T}_h}\|f\|_{L^2(T)} \|e-\mathscr{J}_he\|_{L^2(T)} + \sum_{S\in\mathscr{S}_h} \|\llbracket \nabla u_h \cdot n_S\rrbracket\|_{L^2(S)} \|e-\mathscr{J}_he\|_{L^2(S)}\\
@@ -226,7 +226,7 @@ Mit Hölder- und Schwarz Ungleichungen folgt
 	&\leq& \left( \sum_{T\in\mathscr{T}_h}h_T^2\|f\|_{L^2(T)}^2\right)^{1/2}\|h_{\mathscr{T}_h}^{-1}e-\mathscr{J}_he\| \\
 	&&+ \left(\sum_{S\in\mathscr{S}_h} h_S\|\llbracket \nabla u_h \cdot n_S\rrbracket\|_{L^2(S)}^2\right)^{1/2} \|h_{\mathscr{S}_h}^{-1/2}e-\mathscr{J}_he\|_{L^2(\Cup \mathscr{S}_h)}
 \end{eqnarray*}
-Mit der Quasi Interpolanten Abschätzung und der Ungleichung $a+b\leq \sqrt{2(a^2+b^2)}$ folgt
+Mit der Quasi-Interpolanten-Abschätzung und der Ungleichung $a+b\leq \sqrt{2(a^2+b^2)}$ folgt
 
 \begin{eqnarray*}
  \|\nabla e\| &\leq& c_{\mathscr{J}}\left( \sum_{T\in\mathscr{T}_h}h_T^2\|f\|_{L^2(T)}^2\right)^{1/2}
@@ -236,11 +236,11 @@ Mit der Quasi Interpolanten Abschätzung und der Ungleichung $a+b\leq \sqrt{2(a^
 \end{eqnarray*}
 $\hfill \Box$
 \section{Effizienz}
-Für die Effizienzabschätzung werden zunächst Hilfsaussagen über die sogenannten Bubble Funktionen bewiesen.
+Für die Effizienzabschätzung werden zunächst Hilfsaussagen über die sogenannten Bubble-Funktionen bewiesen.
 \begin{definition}
 	Für $S \in \mathscr{S}_h$ Seite, definiere 
 	\[
-		\omega_S= int(\bigcup_{T\in\mathscr{T}_h,S\subset \p T}T)
+		\omega_S= int\left(\bigcup_{T\in\mathscr{T}_h,S\subset \p T}T\right)
     \]
     und für ein Element $T \in \mathscr{T}_h$ definiere
     \[
@@ -272,7 +272,7 @@ Für die Effizienzabschätzung werden zunächst Hilfsaussagen über die sogenann
 	\]
 	\item[iii)] Mit Standardabschätzung folgt \[
 	\|b_T\| \leq \left(\int_{T}b_T^2dx\right)^{1/2} \leq \sqrt{|T|}\leq h_T^{d/2}
-	\] Weiter gilt mit der Transformationsformel auf das Referenzelement $\hat{T}$
+	\] Weiter gilt mit Transformation auf das Referenzelement $\hat{T}$
 	\begin{eqnarray*}
 		\|\nabla b_T\|^2 &=& \int_{\hat{T}} |\nabla b_{T}\circ \phi_z|^2 | detD\phi_z|d\hat{x} = h_T^dh^{-2}_T\int_{\hat{T}} |\nabla (b_T\circ \phi_z)|^2 d\hat{x} \\
 		&=& h^{-2}_T h_T^d\| \nabla \widehat{b}_{\hat{T}}\|_{L^2(\hat{T})}^2 \leq c h^{-2}_T h_T^d \|\widehat{b}_{\hat{T}}\|_{L^2(\hat{T})}^2 \\
@@ -280,13 +280,13 @@ Für die Effizienzabschätzung werden zunächst Hilfsaussagen über die sogenann
 	\end{eqnarray*}
 	Mit beiden Ungleichungen folgt die Behauptung.
 \end{itemize}
-für $b_S$ analog
+Der Beweis für $b_S$ funktioniert analog.
 $\hfill \Box$
 \begin{figure}[!htbp]
 	\begin{center}
 		\includegraphics[width=16cm]{pics/bubble.png}
 	\end{center}
-	\caption{Bubble-Funktion $b_T$ auf einem Element(links) $b_S$ auf den an S anliegenden Elementen (rechts)}
+	\caption{Bubble-Funktion $b_T$ auf einem Element(links). $b_S$ auf den an S anliegenden Elementen (rechts).}
 \end{figure}
 \newpage
 Die Eigenschaften der Bubble-Funktionen nutzend, ist es nun möglich auch die zweite Ungleichung zur Fehlerkontrolle zu beweisen. 
@@ -299,40 +299,40 @@ Die Eigenschaften der Bubble-Funktionen nutzend, ist es nun möglich auch die zw
 \textbf{Beweis:}
 \begin{itemize}
 	\item[i)] 
-	Für $T =conv\{z_1,z_2,...,z_{d+1}\} \in\mathscr{T}_h$ und $b_T = \varphi_{z_1}\varphi_{z_2}\cdots\varphi_{z_{d+1}}$ , dann gilt mit partieller Integration und $\Delta u_h|_T = 0, b_T|_{\p T} = 0$:
+	Für $T =conv\{z_1,z_2,...,z_{d+1}\} \in\mathscr{T}_h$ und $b_T = \varphi_{z_1}\varphi_{z_2}\cdots\varphi_{z_{d+1}}$, dann gilt mit partieller Integration und $\Delta u_h|_T = 0, b_T|_{\p T} = 0$
 	\[
-	\int_{\Omega} \nabla (u - u_h) \cdot \nabla b_Tdx =\int_{\Omega} f b_T dx
+	\int_{\Omega} \nabla (u - u_h) \cdot \nabla b_T\:dx =\int_{\Omega} f b_T \:dx
 	\]
-    f ist konstant auf T mit Wert $f_T$ und Vorzeichen $\sigma_T$ dann gilt
+    f ist konstant auf T mit Wert $f_T$ und Vorzeichen $\sigma_T$, dann gilt
     \[
-    \sigma_T\int_{T}f_Tb_Tdx=|f_T|\int_{T}b_Tdx=c_{e,1}|f_T||T|= c_{e,1}|T|^{1/2}\|f_T\|_{L^2(T)}
+    \sigma_T\int_{T}f_Tb_T\:dx=|f_T|\int_{T}b_T\:dx=c_{e,1}|f_T||T|= c_{e,1}|T|^{1/2}\|f_T\|_{L^2(T)}
     \]
-    Mit $c_{loc}h_T \leq |T|^{1/2}$, Hölderungleichung und $\|\nabla b_T\|_{L^2(T)} \leq c_{e,2}$ folgt
+    Mit $c_{loc}h_T \leq |T|^{1/2}$, Hölder-Ungleichung und $\|\nabla b_T\|_{L^2(T)} \leq c_{e,2}$ folgt
     \[
-    h_T\|f\|_{L^2(T)}\leq \frac{c_{e,1}}{c_{loc}} |T|^{1/2}\|f\|_{L^2(T)} =\frac{\sigma_T}{c_{loc}}\int_{T}\nabla (u - u_h) \cdot \nabla b_Tdx \leq c_{el} \|\nabla (u-u_h)\|_{L^2(T)}
+    h_T\|f\|_{L^2(T)}\leq \frac{c_{e,1}}{c_{loc}} |T|^{1/2}\|f\|_{L^2(T)} =\frac{\sigma_T}{c_{loc}}\int_{T}\nabla (u - u_h) \cdot \nabla b_T\:dx \leq c_{el} \|\nabla (u-u_h)\|_{L^2(T)}
     \]
     \item[ii)]
-    Für $S =conv\{z_1,z_2,...,z_{d}\} = T_1 \cap T_2$ und $b_S = \varphi_{z_1}\varphi_{z_2}\cdots\varphi_{z_{d}}$ , dann gilt mit partieller Integration und $\Delta u_h|_{T_j} = 0, b_T|_{\p T_j\setminus S} = 0$:
+    Für $S =conv\{z_1,z_2,...,z_{d}\} = T_1 \cap T_2$ und $b_S = \varphi_{z_1}\varphi_{z_2}\cdots\varphi_{z_{d}}$ , dann gilt mit partieller Integration und $\Delta u_h|_{T_j} = 0, b_T|_{\p T_j\setminus S} = 0$
     \begin{eqnarray*}
-    	\int_{\omega_S} \nabla (u-u_h)\cdot \nabla b_S dx &=& \int_{\omega_S} fb_Sdx -\left(\int_{T_1} \nabla u_h\cdot \nabla b_S dx + \int_{T_2} \nabla u_h\cdot \nabla b_S dx\right) \\
-    	&=& \int_{\omega_S} fb_Sdx - \left(\int_{S} (\nabla u_h\cdot n_{T_1}) b_S ds + \int_{S} (\nabla u_h\cdot n_{T_2}) b_S ds\right)\\
-    	&=& \int_{\omega_S} fb_Sdx - \int_{S} \llbracket \nabla u_h \cdot n_S\rrbracket b_S ds
+    	\int_{\omega_S} \nabla (u-u_h)\cdot \nabla b_S \:dx &=& \int_{\omega_S} fb_S\:dx -\left(\int_{T_1} \nabla u_h\cdot \nabla b_S \:dx + \int_{T_2} \nabla u_h\cdot \nabla b_S \:dx\right) \\
+    	&=& \int_{\omega_S} fb_S\:dx - \left(\int_{S} (\nabla u_h\cdot n_{T_1}) b_S \:ds + \int_{S} (\nabla u_h\cdot n_{T_2}) b_S \:ds\right)\\
+    	&=& \int_{\omega_S} fb_S\:dx - \int_{S} \llbracket \nabla u_h \cdot n_S\rrbracket b_S\: ds
     \end{eqnarray*}
-    $\llbracket \nabla u_h \cdot n_S\rrbracket$ ist konstant auf S. Sei $\sigma_S$ Vorzeichen von $\llbracket \nabla u_h \cdot n_S\rrbracket$. Dann gilt
+    $\llbracket \nabla u_h \cdot n_S\rrbracket$ ist konstant auf S. Sei $\sigma_S$ das Vorzeichen von $\llbracket \nabla u_h \cdot n_S\rrbracket$, dann gilt
     \[
-    \sigma_S \int_{S} \llbracket \nabla u_h \cdot n_S\rrbracket b_S ds = c_{S,1}|\llbracket \nabla u_h \cdot n_S\rrbracket||S| =c_{S,1}\|\llbracket \nabla u_h \cdot n_S\rrbracket\|_{L^2(S)}|S|^{1/2}
+    \sigma_S \int_{S} \llbracket \nabla u_h \cdot n_S\rrbracket b_S \:ds = c_{S,1}|\llbracket \nabla u_h \cdot n_S\rrbracket||S| =c_{S,1}\|\llbracket \nabla u_h \cdot n_S\rrbracket\|_{L^2(S)}|S|^{1/2}
     \] 
-	Mit Hölder-Ungleichung und $\|\nabla b_S\|_{L^2(\omega_S)} \leq c_{S,2}$ und $\|b_S\|_{L^2(\omega_S)} \leq |\omega_S|^{1/2}$ gilt
+	Mit Hölder-Ungleichung, $\|\nabla b_S\|_{L^2(\omega_S)} \leq c_{S,2}$ und $\|b_S\|_{L^2(\omega_S)} \leq |\omega_S|^{1/2}$ gilt
 	\begin{eqnarray*}
-		c_{S,1}\|\llbracket \nabla u_h \cdot n_S\rrbracket\|_{L^2(S)}|S|^{1/2} &=& -\sigma_S\int_{\omega_S} \nabla (u-u_h)\cdot \nabla b_S dx +\sigma_S\int_{\omega_S} fb_Sdx \\
+		c_{S,1}\|\llbracket \nabla u_h \cdot n_S\rrbracket\|_{L^2(S)}|S|^{1/2} &=& -\sigma_S\int_{\omega_S} \nabla (u-u_h)\cdot \nabla b_S\: dx +\sigma_S\int_{\omega_S} fb_S\:dx \\
 		&\leq& c_{S,2} \|\nabla (u-u_h)\|_{L^2(\omega_S)} + |\omega_S|^{1/2}\|f\|_{L^2(\omega_S)}
 	\end{eqnarray*}
-	Mit $h_S =|S|$ und $|\omega_S|^{1/2} \leq c_{loc}h_S$ finden wir $c_{side}>0$ sodass	
+	Mit $h_S =|S|$ und $|\omega_S|^{1/2} \leq c_{loc}h_S$ finden wir $c_{side}>0$, sodass	
 	\[
 	c_{side}^{-1}h_S^{1/2} \|\llbracket \nabla u_h \cdot n_S\rrbracket\|_{L^2(S)} \leq \|\nabla (u-u_h)\|_{L^2(\omega_S)} +h_S\|f\|_{L^2(\omega_S)}
 	\]
 	\item[iii)]
-	Kombinieren von i) und ii) und $a+b\leq \sqrt{2(a^2+b^2)}$ zeigt die Behauptung
+	Kombinieren von i), ii) und $a+b\leq \sqrt{2(a^2+b^2)}$ zeigt die Behauptung
 	\begin{eqnarray*}
 		\eta^2_T(u_h) &=& h^2_T\|f\|^2_{L^2(T)} + \sum_{S\in\mathscr{S}_h,S\subset\p T} h_S\|\llbracket \nabla u_h \cdot n_S\rrbracket\|^2_{L^2(S)} \\
 		&\leq& c_{el}^2 \|\nabla (u-u_h)\|_{L^2(T)}^2 + \sum_{S\in\mathscr{S}_h,S\subset\p T}\|\nabla (u-u_h)\|_{L^2(\omega_S)}^2 +h_S^2\|f\|_{L^2(\omega_S)}^2\\

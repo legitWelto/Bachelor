@@ -2,34 +2,34 @@
 \chapter{Notation und Ungleichungen}
 \begin{tabular}{l l}
 	$\mathscr{T}_h$&Menge an Elementen die eine Triangulierung definieren\\
-	$\mathscr{S}_h$&Menge von Seiten von Elementen einer Triangulierung\\
+	$\mathscr{S}_h$&Menge der Seiten von Elementen einer Triangulierung\\
 	& $\{S\subset\R^d|S= conv\{z_1,z_2,...,z_d\},z_1,z_2,...,z_{d+1}\in\mathscr{N}_h, T\in\mathscr{T}_h, T= conv\{z_1,z_2,...,z_{d+1}\}\}$\\
 	$\mathscr{N}_h$&Menge von Knotenpunkten\\
-	$h_T,h_S,h_Z$&lokale Gitterweiten\\
+	$h_T,h_S,h_Z$&Lokale Gitterweiten\\
 	$\varphi_z$&Nodale Basisfunktion von Knoten z\\
 	$\Gamma_D$&Dirichlet Rand\\
-	$\mathscr{S}^1(\mathscr{T}_h)$&Stetige auf Elementen von $\mathscr{T}_h$ affine\\
+	$\mathscr{S}^1(\mathscr{T}_h)$&Stetige, auf Elementen von $\mathscr{T}_h$ affine Funktionen\\
 	$\mathscr{S}^1_D(\mathscr{T}_h)$&Funktionen aus $\mathscr{S}^1(\mathscr{T}_h)$ die auf $\Gamma_D$ verschwinden\\
 	$H^1(\Omega)$ &Hilbertraum $W^{1,2}(\Omega)$\\
 \end{tabular}
 \\  \\ \\ \\
-\textbf{Cauchy-Schwarz Ungleichung}
+\textbf{Cauchy-Schwarz-Ungleichung}
 Für alle $x,y\in\R^n$ gilt
 \[
 x\cdot y =\sum_{i=1}^{n} x_iy_i\leq\left(\sum_{i=1}^{n}x_i^2\right)^{1/2}\left(\sum_{i=1}^{n}y_i^2\right)^{1/2} =|x||y|
 \]\\
-\textbf{Hölder Ungleichung}
+\textbf{Hölder-Ungleichung}
 Für $f\in L^p(\Omega)$ und $g\in L^q(\Omega)$ und $1\leq p, q\leq \infty$ mit $\frac{1}{p}+\frac{1}{q}=1$. Dann gilt
 \[
 \int_{\Omega} fg\:dx\leq \|f\|_{L^p(\Omega)} \|g\|_{L^q(\Omega)}
 \]\\
-\textbf{Poincaré Ungleichung}
+\textbf{Poincaré-Ungleichung}
 Für $v\in W^{1,p}(\Omega)$ mit $1\leq p \leq \infty$ und $v|_{\Gamma_D}=0$ oder $\int_{\Omega}v\:dx =0$. Dann gibt es $c_P>0$, sodass
 \[
 \|v\|_{L^p(\Omega)} \leq c_P\|\nabla v\|_{L^p(\Omega)}
 \]\\
 
-\textbf{Spur Ungleichung}
+\textbf{Spur-Ungleichung}
 Für $v\in W^{1,p}(\Omega)$ mit $1\leq p \leq \infty$ . Dann gibt es $c_{Tr}>0$, sodass
 \[
 \|v\|_{L^p(\p \Omega)} \leq c_{Tr}\|v\|_{W^{1,p}(\Omega)}
